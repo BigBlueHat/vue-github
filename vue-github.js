@@ -108,14 +108,22 @@ Vue.component('github-milestone-list', Fetchable.extend({
     this.$watch('project', function () {
       self.fetchData();
     });
+  },
+  methods: {
+    setMilestone: function(e) {
+      this.$parent.milestone = e.targetVM.$data;
+    }
   }
 }));
 
-Vue.component('github-issue-list', Fetchable.extend({
+var gil = Vue.component('github-issue-list', Fetchable.extend({
   computed: {
     apiUrl: function() {
       if (this.user && this.project) {
         var url = repoBaseUrl + this.user + '/' + this.project + '/issues';
+        if (this.milestone && this.milestone.number) {
+          url += '?milestone=' + this.milestone.number;
+        }
         return url;
       }
     },
@@ -134,15 +142,18 @@ Vue.component('github-issue-list', Fetchable.extend({
     this.$watch('project', function () {
       self.fetchData();
     });
+    this.$watch('milestone', function () {
+      self.fetchData();
+    });
   }
 }));
 
-var vuegithub = new Vue({
-  el: '#vue-github',
-  lazy: true,
+Vue.component('vue-github', {
   data: {
-    user: 'hypothesis',
-    branch: 'master'
+    user: '',
+    project: '',
+    branch: '',
+    milestone: {}
   },
   filters: {
     truncate: function (v) {
@@ -153,4 +164,8 @@ var vuegithub = new Vue({
       return v.replace(/T|Z/g, ' ');
     }
   }
+});
+
+var app = new Vue({
+  el: '#vue-github'
 });

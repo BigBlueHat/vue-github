@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Roadmap Demo - vue-github</title>
+  <link rel="stylesheet" type="text/css" href="semantic-ui/css/semantic.min.css" />
+</head>
+<body>
+
+  <a href="https://github.com/bigbluehat/vue-github">
+    <img style="position: absolute; z-index: 1; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png">
+  </a>
+
+  <section>
+    <h1 class="ui header">Roadmap Demo</h1>
+    <p>It's possible to constructe HTML pages + vue-github components to
+    dynamically represent the state of a "roadmap" as seen across multiple
+    GitHub projects (aka repos).</p>
+  </section>
+
+  <div id="vue-github">
+    <div class="ui two column page grid" v-component="vue-github" v-with="user: 'hypothesis', project: 'hypothesis.github.io'">
+      <h1 class="ui header">{{user}} / {{project}}</h1>
+      <div class="column">
+        <div class="ui segment"
+            v-component="github-milestone-list"
+            v-with="user: user, project: project">
+          <h5 class="ui header">Milestones
+            <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank">
+              <i class="basic url icon"></i></a></h5>
+          <div class="ui secondary vertical menu">
+            <p class="item" v-if="!items">no milestones</p>
+            <a class="item" v-repeat="items" target="_blank"
+              v-on="click: setMilestone">
+              {{title}}
+              <strong class="ui label red">{{open_issues}}</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui segment"
+            v-component="github-issue-list"
+            v-with="user: user, project: project, milestone: milestone">
+          <h5 class="ui header">
+            <em v-if="milestone.title">{{milestone.title}}</em> Issues
+            <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank">
+              <i class="basic url icon"></i></a></h5>
+          <ul class="ui list">
+            <li class="item" v-if="!items">no issues</li>
+            <li class="item" v-repeat="items">
+            {{title}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script id="template-github-commit" type="text/vuejs+html">
+  <a href="{{html_url}}" target="_blank" class="commit">
+  {{sha.slice(0, 7)}}</a>
+  - <span class="message">{{commit.message | truncate}}</span>
+  <br>
+  by <strong class="author">{{commit.author.name}}</strong>
+  at <strong class="date">{{commit.author.date | formatDate}}</strong>
+  </script>
+
+    <script src="vue.min.js"></script>
+    <script src="vue-github.js"></script>
+</body>
+</html>
