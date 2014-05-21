@@ -1,5 +1,5 @@
 var repoBaseUrl = 'https://api.github.com/repos/';
-var orgBaseUrl = 'https://api.github.com/orgs/';
+var userBaseUrl = 'https://api.github.com/users/';
 
 var Fetchable = Vue.extend({
   methods: {
@@ -20,7 +20,7 @@ Vue.component('github-repo-list', Fetchable.extend({
   computed: {
     apiUrl: function() {
       if (this.user) {
-        var url = orgBaseUrl + this.user + '/repos';
+        var url = userBaseUrl + this.user + '/repos';
         return url;
       }
     }

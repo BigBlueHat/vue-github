@@ -10,7 +10,7 @@
     <div class="ui form">
       <div class="inline fields">
         <div class="ui header field" v-class="error: invalidUserProject">
-          <input type="text" placeholder="organization" v-model="user" v-on="change: project = ''" />
+          <input type="text" placeholder="user or organization" v-model="user" v-on="change: project = ''" />
         </div>
       <div class="ui huge compact menu" v-component="github-repo-list" v-with="user: user, project: project">
         <div class="ui inline dropdown item"
