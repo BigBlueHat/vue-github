@@ -1,3 +1,4 @@
+var siteBaseUrl = 'https://github.com/';
 var repoBaseUrl = 'https://api.github.com/repos/';
 var userBaseUrl = 'https://api.github.com/users/';
 
@@ -91,6 +92,12 @@ Vue.component('github-milestone-list', Fetchable.extend({
         var url = repoBaseUrl + this.user + '/' + this.project + '/milestones';
         return url;
       }
+    },
+    htmlUrl: function() {
+      if (this.user && this.project) {
+        var url = siteBaseUrl + this.user + '/' + this.project + '/issues/milestones';
+        return url;
+      }
     }
   },
   created: function () {
@@ -104,6 +111,31 @@ Vue.component('github-milestone-list', Fetchable.extend({
   }
 }));
 
+Vue.component('github-issue-list', Fetchable.extend({
+  computed: {
+    apiUrl: function() {
+      if (this.user && this.project) {
+        var url = repoBaseUrl + this.user + '/' + this.project + '/issues';
+        return url;
+      }
+    },
+    htmlUrl: function() {
+      if (this.user && this.project) {
+        var url = siteBaseUrl + this.user + '/' + this.project + '/issues';
+        return url;
+      }
+    }
+  },
+  created: function () {
+    var self = this;
+    this.$watch('user', function () {
+      self.fetchData();
+    });
+    this.$watch('project', function () {
+      self.fetchData();
+    });
+  }
+}));
 
 var vuegithub = new Vue({
   el: '#vue-github',

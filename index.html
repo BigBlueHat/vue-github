@@ -49,13 +49,30 @@
         <li v-component="github-commit" v-repeat="items"></li>
       </ul>
     </div>
-    <div class="ui segment">
-      <ul class="ui list"
+    <div class="ui segment"
         v-component="github-milestone-list"
         v-with="user: user, project: project">
+      <h5 class="ui header">Milestones
+        <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank">
+          <i class="basic url icon"></i></a></h5>
+      <ul class="ui list">
+        <li class="item" v-if="!items">no milestones</li>
         <li class="item" v-repeat="items">
         <strong class="ui label red">{{open_issues}}</strong>
         <strong class="ui label">{{closed_issues}}</strong>
+        {{title}}
+        </li>
+      </ul>
+    </div>
+    <div class="ui segment"
+        v-component="github-issue-list"
+        v-with="user: user, project: project">
+      <h5 class="ui header">Issues
+        <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank">
+          <i class="basic url icon"></i></a></h5>
+      <ul class="ui list">
+        <li class="item" v-if="!items">no issues</li>
+        <li class="item" v-repeat="items">
         {{title}}
         </li>
       </ul>
