@@ -1,4 +1,5 @@
-var orgUrl = 'https://api.github.com/repos/';
+var repoBaseUrl = 'https://api.github.com/repos/';
+var orgBaseUrl = 'https://api.github.com/orgs/';
 
 var Fetchable = Vue.extend({
   methods: {
@@ -15,17 +16,40 @@ var Fetchable = Vue.extend({
   }
 });
 
-Vue.component('github-branch-list', Fetchable.extend({
+Vue.component('github-repo-list', Fetchable.extend({
   computed: {
     apiUrl: function() {
-      var url = orgUrl + this.user_project + '/branches';
-      return url;
+      if (this.user) {
+        var url = orgBaseUrl + this.user + '/repos';
+        return url;
+      }
     }
   },
   created: function () {
     var self = this;
-    this.$watch('user_project', function () {
-      if (this.$parent.invalidUserProject) return false;
+    this.$watch('user', function () {
+      self.fetchData();
+    });
+  }
+}));
+
+Vue.component('github-branch-list', Fetchable.extend({
+  computed: {
+    apiUrl: function() {
+      if (this.user && this.project) {
+        var url = repoBaseUrl + this.user + '/' + this.project + '/branches';
+        return url;
+      }
+    }
+  },
+  created: function () {
+    var self = this;
+    this.$watch('user', function () {
+      if (this.project) {
+        self.fetchData();
+      }
+    });
+    this.$watch('project', function () {
       self.fetchData();
     });
   }
@@ -34,12 +58,22 @@ Vue.component('github-branch-list', Fetchable.extend({
 Vue.component('github-commit-list', Fetchable.extend({
   computed: {
     apiUrl: function() {
-      var url = orgUrl + this.user_project + '/commits?per_page=3&sha=' + this.branch;
-      return url;
+      if (this.user && this.project) {
+        var url = repoBaseUrl + this.user + '/' + this.project + '/commits?per_page=3&sha=' + (this.branch == 'master' ? '' : this.branch);
+        return url;
+      }
     }
   },
   created: function () {
     var self = this;
+    this.$watch('user', function () {
+      self.branch = 'master';
+      self.fetchData();
+    });
+    this.$watch('project', function () {
+      self.branch = 'master';
+      self.fetchData();
+    });
     this.$watch('branch', function () {
       self.fetchData();
     });
@@ -54,24 +88,8 @@ var vuegithub = new Vue({
   el: '#vue-github',
   lazy: true,
   data: {
-    branch: 'master',
-    user_project: 'hypothesis/h'
-  },
-  computed: {
-    user: function() {
-      return this.user_project.split('/')[0];
-    },
-    project: {
-      $get: function() {
-        return this.user_project.split('/')[1];
-      }
-    },
-    invalidUserProject: {
-      $get: function() {
-        var regex = /\w\/\w/;
-        return !regex.test(this.user_project);
-      }
-    }
+    user: 'hypothesis',
+    branch: 'master'
   },
   filters: {
     truncate: function (v) {
