@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>vue-github</title>
+  <link rel="stylesheet" type="text/css" href="/semantic-ui/css/semantic.min.css" />
+</head>
+<body>
+  <div id="vue-github">
+    <h1 class="ui header">vue-github</h1>
+
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="field" v-class="error: invalidUserProject">
+          <input type="text" placeholder="user/project" v-model="user_project" />
+        </div>
+
+      </div>
+    </div>
+    <div class="ui segment">
+      <div class="ui compact menu" v-component="github-branch-list" v-with="user_project: user_project">
+        <div class="ui inline dropdown item" v-on="click: this.$el.firstElementChild.classList.toggle('visible')">
+          <strong class="text">{{branch}}</strong> <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item active">master</div>
+            <div class="item" v-repeat="items" v-on="click: branch = name">{{name}}</div>
+          </div>
+        </div>
+      </div>
+      <ul v-component="github-commit-list"
+          v-with="branch: branch, user_project: user_project">
+        <li v-component="github-commit" v-repeat="items"></li>
+      </ul>
+    </div>
+  </div>
+
+  <script id="template-github-commit" type="text/vuejs+html">
+  <a href="{{html_url}}" target="_blank" class="commit">
+  {{sha.slice(0, 7)}}</a>
+  - <span class="message">{{commit.message | truncate}}</span>
+  <br>
+  by <strong class="author">{{commit.author.name}}</strong>
+  at <strong class="date">{{commit.author.date | formatDate}}</strong>
+  </script>
+
+    <script src="vue.min.js"></script>
+    <script src="vue-github.js"></script>
+</body>
+</html>
