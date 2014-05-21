@@ -84,6 +84,27 @@ Vue.component('github-commit', {
   template: '#template-github-commit'
 });
 
+Vue.component('github-milestone-list', Fetchable.extend({
+  computed: {
+    apiUrl: function() {
+      if (this.user && this.project) {
+        var url = repoBaseUrl + this.user + '/' + this.project + '/milestones';
+        return url;
+      }
+    }
+  },
+  created: function () {
+    var self = this;
+    this.$watch('user', function () {
+      self.fetchData();
+    });
+    this.$watch('project', function () {
+      self.fetchData();
+    });
+  }
+}));
+
+
 var vuegithub = new Vue({
   el: '#vue-github',
   lazy: true,

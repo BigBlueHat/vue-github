@@ -44,6 +44,17 @@
         <li v-component="github-commit" v-repeat="items"></li>
       </ul>
     </div>
+    <div class="ui segment">
+      <ul class="ui list"
+        v-component="github-milestone-list"
+        v-with="user: user, project: project">
+        <li class="item" v-repeat="items">
+        <strong class="ui label red">{{open_issues}}</strong>
+        <strong class="ui label">{{closed_issues}}</strong>
+        {{title}}
+        </li>
+      </ul>
+    </div>
   </div>
 
   <script id="template-github-commit" type="text/vuejs+html">
