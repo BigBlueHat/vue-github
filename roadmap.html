@@ -27,7 +27,10 @@
             v-with="user: user, project: project">
           <h5 class="ui header">Milestones
             <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank">
-              <i class="basic url icon"></i></a></h5>
+              <i class="basic url icon"></i></a>
+            <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">
+              <i class="basic cancel circle icon link"></i></a></h5>
+          </h5>
           <div class="ui secondary vertical menu">
             <p class="item" v-if="!items">no milestones</p>
             <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
