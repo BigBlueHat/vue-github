@@ -122,6 +122,7 @@ Vue.component('github-milestone-list', Fetchable.extend({
 }));
 
 Vue.component('github-issue-list', Fetchable.extend({
+  template: '#template-github-issue-list',
   computed: {
     apiUrl: function() {
       if (this.user && this.project) {
