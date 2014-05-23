@@ -68,9 +68,13 @@
     <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">
       <i class="basic url icon"></i></a></h5>
   <div class="ui fluid vertical menu">
-    <div class="item" v-if="!items">no issues</div>
+    <p class="item" v-if="!items">no issues</p>
     <div class="item" v-repeat="items">
-    {{title}}
+      <div>
+        {{title}}
+        <span v-if="comments" class="ui label"><i class="ui comment icon"></i> {{comments}}</span>
+      </div>
+      <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
     </div>
   </ul>
   </script>
