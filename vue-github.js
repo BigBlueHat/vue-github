@@ -86,6 +86,7 @@ Vue.component('github-commit', {
 });
 
 Vue.component('github-milestone-list', Fetchable.extend({
+  template: '#template-github-milestone-list',
   computed: {
     apiUrl: function() {
       if (this.user && this.project) {
@@ -120,7 +121,7 @@ Vue.component('github-milestone-list', Fetchable.extend({
   }
 }));
 
-var gil = Vue.component('github-issue-list', Fetchable.extend({
+Vue.component('github-issue-list', Fetchable.extend({
   computed: {
     apiUrl: function() {
       if (this.user && this.project) {

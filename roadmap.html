@@ -25,20 +25,6 @@
         <div class="ui segment"
             v-component="github-milestone-list"
             v-with="user: user, project: project">
-          <h5 class="ui header">Milestones
-            <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank">
-              <i class="basic url icon"></i></a>
-            <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">
-              <i class="basic cancel circle icon link"></i></a></h5>
-          </h5>
-          <div class="ui secondary vertical menu">
-            <p class="item" v-if="!items">no milestones</p>
-            <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
-              v-on="click: toggleMilestone">
-              {{title}}
-              <strong class="ui label red">{{open_issues}}</strong>
-            </a>
-          </div>
         </div>
       </div>
       <div class="column">
@@ -47,7 +33,7 @@
             v-with="user: user, project: project, milestone: milestone">
           <h5 class="ui header">
             <em v-if="milestone.title">{{milestone.title}}</em> Issues
-            <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank">
+            <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">
               <i class="basic url icon"></i></a></h5>
           <ul class="ui list">
             <li class="item" v-if="!items">no issues</li>
@@ -68,6 +54,24 @@
   by <strong class="author">{{commit.author.name}}</strong>
   at <strong class="date">{{commit.author.date | formatDate}}</strong>
   </script>
+
+  <script id="template-github-milestone-list" type="text/vuejs+html">
+  <h5 class="ui header">Milestones
+    <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">
+      <i class="basic url icon"></i></a>
+    <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">
+      <i class="basic cancel circle icon link"></i></a></h5>
+  </h5>
+  <div class="ui secondary vertical menu">
+    <p class="item" v-if="!items">no milestones</p>
+    <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
+      v-on="click: toggleMilestone">
+      {{title}}
+      <strong class="ui label red">{{open_issues}}</strong>
+    </a>
+  </div>
+  </script>
+
 
     <script src="vue.min.js"></script>
     <script src="vue-github.js"></script>
