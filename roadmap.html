@@ -52,7 +52,7 @@
     <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">
       <i class="basic cancel circle icon link"></i></a></h5>
   </h5>
-  <div class="ui secondary vertical menu">
+  <div class="ui fluid vertical menu">
     <p class="item" v-if="!items">no milestones</p>
     <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
       v-on="click: toggleMilestone">
@@ -67,11 +67,11 @@
     <em v-if="milestone.title">{{milestone.title}}</em> Issues
     <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">
       <i class="basic url icon"></i></a></h5>
-  <ul class="ui list">
-    <li class="item" v-if="!items">no issues</li>
-    <li class="item" v-repeat="items">
+  <div class="ui fluid vertical menu">
+    <div class="item" v-if="!items">no issues</div>
+    <div class="item" v-repeat="items">
     {{title}}
-    </li>
+    </div>
   </ul>
   </script>
 
