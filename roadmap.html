@@ -34,7 +34,7 @@
           <div class="ui secondary vertical menu">
             <p class="item" v-if="!items">no milestones</p>
             <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
-              v-on="click: setMilestone">
+              v-on="click: toggleMilestone">
               {{title}}
               <strong class="ui label red">{{open_issues}}</strong>
             </a>

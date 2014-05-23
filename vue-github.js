@@ -110,8 +110,12 @@ Vue.component('github-milestone-list', Fetchable.extend({
     });
   },
   methods: {
-    setMilestone: function(e) {
-      this.$parent.milestone = e.targetVM.$data;
+    toggleMilestone: function(e) {
+      if (this.$parent.milestone == e.targetVM.$data) {
+        this.$parent.milestone = {};
+      } else {
+        this.$parent.milestone = e.targetVM.$data;
+      }
     }
   }
 }));
