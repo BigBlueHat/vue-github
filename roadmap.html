@@ -77,7 +77,8 @@
       <div v-on="click: toggleActive" v-class="active: accordionOpen" class="title">
       <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
         {{title}}
-        <a v-show="accordionOpen" class="ui top right attached label" href="{{html_url}}"><i class="small basic url icon"></i></a>
+        <a v-show="accordionOpen" class="ui top right attached label"
+          href="{{html_url}}" target="_blank"><i class="small basic url icon"></i></a>
         <span v-if="comments" class="ui label"><i class="ui comment icon"></i> {{comments}}</span>
       </div>
       <div v-class="active: accordionOpen" v-html="body | stripComments | marked"
