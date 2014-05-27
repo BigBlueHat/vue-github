@@ -4,6 +4,10 @@
   <meta charset="utf-8" />
   <title>Roadmap Demo - vue-github</title>
   <link rel="stylesheet" type="text/css" href="semantic-ui/css/semantic.min.css" />
+  <style type="text/css">
+  .accordion .title.active{position:relative}
+  .accordion .content{overflow:auto}
+  </style>
 </head>
 <body>
 
@@ -70,14 +74,14 @@
   <div class="ui accordion">
     <p class="item" v-if="!items">no issues</p>
     <div class="item" v-repeat="items">
-      <a class="ui top right attached label" href="{{html_url}}"><i class="small basic url icon"></i></a>
       <div v-on="click: toggleActive" v-class="active: accordionOpen" class="title">
       <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
         {{title}}
+        <a v-show="accordionOpen" class="ui top right attached label" href="{{html_url}}"><i class="small basic url icon"></i></a>
         <span v-if="comments" class="ui label"><i class="ui comment icon"></i> {{comments}}</span>
       </div>
-      <div v-class="active: accordionOpen" v-html="body | marked"
-        class="content" style="overflow:auto"></div>
+      <div v-class="active: accordionOpen" v-html="body | stripComments | marked"
+        class="content"></div>
     </div>
   </ul>
   </script>

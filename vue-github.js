@@ -162,7 +162,10 @@ Vue.component('github-issue-list', Fetchable.extend({
     }
   },
   filters: {
-    marked: marked
+    marked: marked,
+    stripComments: function(v) {
+      return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
+    }
   }
 }));
 
