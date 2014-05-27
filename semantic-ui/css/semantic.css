@@ -9949,8 +9949,8 @@ a.ui.teal.label:hover:before {
   -moz-transition: background-color 0.2s ease-out;
   transition: background-color 0.2s ease-out;
 }
-.ui.accordion .title:first-child,
-.ui.accordion .accordion .title:first-child {
+.ui.accordion > .title:first-child,
+.ui.accordion .accordion > .title:first-child {
   border-top: none;
 }
 /* Content */
