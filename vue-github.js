@@ -2,6 +2,18 @@ var siteBaseUrl = 'https://github.com/';
 var repoBaseUrl = 'https://api.github.com/repos/';
 var userBaseUrl = 'https://api.github.com/users/';
 
+var renderer = new marked.Renderer();
+renderer.listitem = function(text) {
+  if (/^\s*\[[x ]\]\s*/.test(text)) {
+    text = text
+      .replace(/^\s*\[ \]\s*/, '<i class="empty checkbox icon"></i> ')
+      .replace(/^\s*\[x\]\s*/, '<i class="checked checkbox icon"></i> ');
+    return '<li style="list-style: none">' + text + '</li>';
+  } else {
+    return '<li>' + text + '</li>';
+  }
+};
+
 var Fetchable = Vue.extend({
   methods: {
     fetchData: function () {
@@ -162,7 +174,9 @@ Vue.component('github-issue-list', Fetchable.extend({
     }
   },
   filters: {
-    marked: marked,
+    marked: function(v) {
+      return marked(v, {renderer: renderer});
+    },
     stripComments: function(v) {
       return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
     }
