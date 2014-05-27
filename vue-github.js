@@ -160,6 +160,9 @@ Vue.component('github-issue-list', Fetchable.extend({
         e.targetVM.accordionOpen = true;
       }
     }
+  },
+  filters: {
+    marked: marked
   }
 }));
 

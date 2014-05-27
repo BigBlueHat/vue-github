@@ -76,11 +76,13 @@
         {{title}}
         <span v-if="comments" class="ui label"><i class="ui comment icon"></i> {{comments}}</span>
       </div>
-      <pre v-class="active: accordionOpen" class="content" style="overflow:auto">{{body}}</pre>
+      <div v-class="active: accordionOpen" v-html="body | marked"
+        class="content" style="overflow:auto"></div>
     </div>
   </ul>
   </script>
 
+    <script src="marked.min.js"></script>
     <script src="vue.min.js"></script>
     <script src="vue-github.js"></script>
 </body>
