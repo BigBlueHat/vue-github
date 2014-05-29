@@ -14,22 +14,18 @@ renderer.listitem = function(text) {
   }
 };
 
-var Fetchable = Vue.extend({
-  methods: {
-    fetchData: function () {
-      if (!this.apiUrl) return false;
-      var xhr = new XMLHttpRequest(),
-          self = this;
-      xhr.open('GET', self.apiUrl);
-      xhr.onload = function () {
-        self.items = JSON.parse(xhr.responseText);
-      };
-      xhr.send();
-    }
-  }
-});
+var fetchData = function () {
+  if (!this.apiUrl) return false;
+  var xhr = new XMLHttpRequest(),
+      self = this;
+  xhr.open('GET', self.apiUrl);
+  xhr.onload = function () {
+    self.items = JSON.parse(xhr.responseText);
+  };
+  xhr.send();
+};
 
-Vue.component('github-repo-list', Fetchable.extend({
+Vue.component('github-repo-list', {
   computed: {
     apiUrl: function() {
       if (this.user) {
@@ -43,10 +39,13 @@ Vue.component('github-repo-list', Fetchable.extend({
     this.$watch('user', function () {
       self.fetchData();
     });
+  },
+  methods: {
+    fetchData: fetchData
   }
-}));
+});
 
-Vue.component('github-branch-list', Fetchable.extend({
+Vue.component('github-branch-list', {
   computed: {
     apiUrl: function() {
       if (this.user && this.project) {
@@ -65,10 +64,13 @@ Vue.component('github-branch-list', Fetchable.extend({
     this.$watch('project', function () {
       self.fetchData();
     });
+  },
+  methods: {
+    fetchData: fetchData
   }
-}));
+});
 
-Vue.component('github-commit-list', Fetchable.extend({
+Vue.component('github-commit-list', {
   computed: {
     apiUrl: function() {
       if (this.user && this.project) {
@@ -90,14 +92,17 @@ Vue.component('github-commit-list', Fetchable.extend({
     this.$watch('branch', function () {
       self.fetchData();
     });
+  },
+  methods: {
+    fetchData: fetchData
   }
-}));
+});
 
 Vue.component('github-commit', {
   template: '#template-github-commit'
 });
 
-Vue.component('github-milestone-list', Fetchable.extend({
+Vue.component('github-milestone-list', {
   template: '#template-github-milestone-list',
   computed: {
     apiUrl: function() {
@@ -129,11 +134,12 @@ Vue.component('github-milestone-list', Fetchable.extend({
       } else {
         this.$parent.milestone = e.targetVM.$data;
       }
-    }
+    },
+    fetchData: fetchData
   }
-}));
+});
 
-Vue.component('github-issue-list', Fetchable.extend({
+Vue.component('github-issue-list', {
   template: '#template-github-issue-list',
   computed: {
     apiUrl: function() {
@@ -171,7 +177,8 @@ Vue.component('github-issue-list', Fetchable.extend({
       } else {
         e.targetVM.accordionOpen = true;
       }
-    }
+    },
+    fetchData: fetchData
   },
   filters: {
     marked: function(v) {
@@ -181,7 +188,7 @@ Vue.component('github-issue-list', Fetchable.extend({
       return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
     }
   }
-}));
+});
 
 Vue.component('vue-github', {
   data: {
