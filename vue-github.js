@@ -25,7 +25,7 @@ var fetchData = function () {
   xhr.send();
 };
 
-Vue.component('github-repo-list', {
+var GithubRepoList = Vue.component('github-repo-list', {
   computed: {
     apiUrl: function() {
       if (this.user) {
@@ -43,6 +43,11 @@ Vue.component('github-repo-list', {
     fetchData: fetchData
   }
 });
+
+Vue.component('github-repo-list-dropdown', GithubRepoList.extend({
+  template: '#template-github-repo-list-dropdown',
+  replace: true
+}));
 
 Vue.component('github-branch-list', {
   computed: {

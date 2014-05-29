@@ -31,6 +31,7 @@
           </div>
         </div>
 
+        <div v-component="github-repo-list-dropdown" v-with="user: user, project: project"></div>
 
         </div>
       </div>
@@ -88,6 +89,21 @@
   <br>
   by <strong class="author">{{commit.author.name}}</strong>
   at <strong class="date">{{commit.author.date | formatDate}}</strong>
+  </script>
+
+  <script id="template-github-repo-list-dropdown" type="text/vuejs+html">
+  <div class="ui huge compact menu">
+    <div class="ui inline dropdown item"
+      v-on="click: this.$el.firstElementChild.classList.toggle('visible')">
+      <strong v-if="project" class="text">{{project}}</strong>
+      <strong v-if="!project" class="text"><span style="color:#AAA">pick a repo</span></strong>
+      <i class="dropdown icon" v-class="disabled: !project"></i>
+      <div class="menu">
+        <div class="item" v-repeat="items" v-on="click: project = name"
+           v-class="active: project == name">{{name}}</div>
+      </div>
+    </div>
+  </div>
   </script>
 
     <script src="marked.min.js"></script>
