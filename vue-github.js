@@ -35,9 +35,8 @@ Vue.component('github-repo-list', {
     }
   },
   created: function () {
-    var self = this;
     this.$watch('user', function () {
-      self.fetchData();
+      this.fetchData();
     });
   },
   methods: {
@@ -55,14 +54,13 @@ Vue.component('github-branch-list', {
     }
   },
   created: function () {
-    var self = this;
     this.$watch('user', function () {
       if (this.project) {
-        self.fetchData();
+        this.fetchData();
       }
     });
     this.$watch('project', function () {
-      self.fetchData();
+      this.fetchData();
     });
   },
   methods: {
@@ -80,17 +78,16 @@ Vue.component('github-commit-list', {
     }
   },
   created: function () {
-    var self = this;
     this.$watch('user', function () {
-      self.branch = 'master';
-      self.fetchData();
+      this.branch = 'master';
+      this.fetchData();
     });
     this.$watch('project', function () {
-      self.branch = 'master';
-      self.fetchData();
+      this.branch = 'master';
+      this.fetchData();
     });
     this.$watch('branch', function () {
-      self.fetchData();
+      this.fetchData();
     });
   },
   methods: {
@@ -119,12 +116,11 @@ Vue.component('github-milestone-list', {
     }
   },
   created: function () {
-    var self = this;
     this.$watch('user', function () {
-      self.fetchData();
+      this.fetchData();
     });
     this.$watch('project', function () {
-      self.fetchData();
+      this.fetchData();
     });
   },
   methods: {
@@ -159,15 +155,14 @@ Vue.component('github-issue-list', {
     }
   },
   created: function () {
-    var self = this;
     this.$watch('user', function () {
-      self.fetchData();
+      this.fetchData();
     });
     this.$watch('project', function () {
-      self.fetchData();
+      this.fetchData();
     });
     this.$watch('milestone', function () {
-      self.fetchData();
+      this.fetchData();
     });
   },
   methods: {
