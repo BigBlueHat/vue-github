@@ -12,7 +12,7 @@
   </a>
 
   <div id="vue-github">
-    <div v-component="vue-github">
+    <div v-component="vue-github" v-with="user: 'hypothesis'">
       <div class="ui form">
         <div class="inline fields">
           <div class="ui header field">
@@ -59,9 +59,9 @@
         <ul class="ui list">
           <li class="item" v-if="!items">no milestones</li>
           <li class="item" v-repeat="items">
-          <strong class="ui label red">{{open_issues}}</strong>
-          <strong class="ui label">{{closed_issues}}</strong>
-          {{title}}
+          <strong>{{title}}</strong>
+          <span class="ui label red">{{open_issues}}</span>
+          <span class="ui label">{{closed_issues}}</span>
           </li>
         </ul>
       </div>
@@ -90,6 +90,7 @@
   at <strong class="date">{{commit.author.date | formatDate}}</strong>
   </script>
 
+    <script src="marked.min.js"></script>
     <script src="vue.min.js"></script>
     <script src="vue-github.js"></script>
 </body>
