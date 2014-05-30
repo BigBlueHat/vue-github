@@ -73,8 +73,9 @@
   <div class="ui accordion">
     <p class="item" v-if="!items">no milestones</p>
     <div class="item" v-repeat="items">
-      <div class="title"
+      <div class="title" v-class="active: milestone.number == number"
         v-on="click: toggleMilestone">
+        <i class="dropdown icon"></i>
         {{title}}
         <strong class="ui label red">{{open_issues}}</strong>
       </div>
