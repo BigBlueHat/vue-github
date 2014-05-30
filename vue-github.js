@@ -15,20 +15,18 @@
     }
   };
 
-  var fetchData = function () {
-    if (!this.apiUrl) return false;
-    var xhr = new XMLHttpRequest(),
-        self = this;
-    xhr.open('GET', self.apiUrl);
-    xhr.onload = function () {
-      self.items = JSON.parse(xhr.responseText);
-    };
-    xhr.send();
-  };
-
   var Fetchable = Vue.extend({
     methods: {
-      fetchData: fetchData
+      fetchData: function () {
+        if (!this.apiUrl) return false;
+        var xhr = new XMLHttpRequest(),
+            self = this;
+        xhr.open('GET', self.apiUrl);
+        xhr.onload = function () {
+          self.items = JSON.parse(xhr.responseText);
+        };
+        xhr.send();
+      }
     }
   });
 
