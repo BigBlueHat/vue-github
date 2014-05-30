@@ -220,7 +220,9 @@
   }));
 
   Vue.component('vue-github', {
-    lazy: true,
+    data: {
+      milestone: {}
+    },
     filters: {
       truncate: function (v) {
         var newline = v.indexOf('\n');

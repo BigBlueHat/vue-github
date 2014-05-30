@@ -23,7 +23,7 @@
   </section>
 
   <div id="vue-github">
-    <div class="ui two column page grid" v-component="vue-github" v-with="user: 'hypothesis', project: 'hypothesis.github.io'">
+    <div class="ui two column page grid" v-component="vue-github">
       <h1 class="ui header">{{user}} / {{project}}</h1>
       <div class="column">
         <div class="ui segment"
@@ -121,5 +121,15 @@
     <script src="marked.min.js"></script>
     <script src="vue.min.js"></script>
     <script src="vue-github.js"></script>
+    <script>
+    var app = new Vue({
+      el: '#vue-github',
+      data: {
+        user: 'hypothesis',
+        project: 'hypothesis.github.io',
+        branch: 'master'
+      }
+    });
+    </script>
 </body>
 </html>
