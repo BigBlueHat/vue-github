@@ -15,6 +15,21 @@
     }
   };
 
+  /** Filters **/
+  Vue.filter('marked', function(v, k) {
+    return marked(v, {renderer: renderer});
+  });
+  Vue.filter('stripComments', function(v) {
+    return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
+  });
+  Vue.filter('truncate', function (v) {
+    var newline = v.indexOf('\n');
+    return newline > -1 ? v.slice(0, newline) : v;
+  });
+  Vue.filter('formatDate', function (v) {
+    return v.replace(/T|Z/g, ' ');
+  });
+
   var Fetchable = Vue.extend({
     methods: {
       fetchData: function () {
@@ -195,42 +210,23 @@
       e.targetVM.accordionOpen = true;
     }
   };
-  var issue_filters = {
-    marked: function(v) {
-      return marked(v, {renderer: renderer});
-    },
-    stripComments: function(v) {
-      return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
-    }
-  };
 
   Vue.component('github-issue-list', GitHubIssueList.extend({
     template: '#template-github-issue-list',
     methods: {
       toggleActive: toggleActive
     },
-    filters: issue_filters
   }));
   Vue.component('github-issue-accordion', GitHubIssueList.extend({
     template: '#template-github-issue-accordion',
     methods: {
       toggleActive: toggleActive
     },
-    filters: issue_filters
   }));
 
   Vue.component('vue-github', {
     data: {
       milestone: {}
-    },
-    filters: {
-      truncate: function (v) {
-        var newline = v.indexOf('\n');
-        return newline > -1 ? v.slice(0, newline) : v;
-      },
-      formatDate: function (v) {
-        return v.replace(/T|Z/g, ' ');
-      }
     }
   });
 })();
