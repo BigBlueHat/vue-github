@@ -16,17 +16,26 @@
   </a>
 
   <section>
-    <h1 class="ui header">Roadmap Demo</h1>
-    <p>It's possible to constructe HTML pages + vue-github components to
-    dynamically represent the state of a "roadmap" as seen across multiple
-    GitHub projects (aka repos).</p>
+    <h1 class="ui header">Components</h1>
+    <p>vue-github includes several re-usable components. These are a few of them.</p>
   </section>
 
   <div id="vue-github">
-    <div class="ui one column page grid">
+    <div class="ui two column page grid">
       <h1 class="ui header">{{user}} / {{project}}</h1>
       <div class="column">
-        <div v-component="github-milestone-accordion"
+        <div class="ui segment"
+            v-component="github-milestone-list"
+            v-with="user: user, project: project">
+        </div>
+        <div class="ui segment"
+            v-component="github-issue-list"
+            v-with="user: user, project: project, milestone: milestone">
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui segment"
+            v-component="github-milestone-accordion"
             v-with="user: user, project: project">
         </div>
       </div>
@@ -59,7 +68,7 @@
   </script>
 
   <script id="template-github-milestone-accordion" type="text/vuejs+html">
-  <div class="ui fluid accordion">
+  <div class="ui accordion">
     <p class="item" v-if="!items">no milestones</p>
     <div class="item" v-repeat="items">
       <div class="title" v-class="active: milestone.number == number"
