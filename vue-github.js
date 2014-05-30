@@ -175,25 +175,48 @@
     }
   }));
 
+  Vue.component('github-milestone-accordion', GitHubMilestoneList.extend({
+    template: '#template-github-milestone-accordion',
+    methods: {
+      toggleMilestone: function(e) {
+        if (this.$parent.milestone == e.targetVM.$data) {
+          this.$parent.milestone = {};
+        } else {
+          this.$parent.milestone = e.targetVM.$data;
+        }
+      }
+    }
+  }));
+
+  var toggleActive = function(e) {
+    if (e.targetVM.accordionOpen) {
+      e.targetVM.accordionOpen = false;
+    } else {
+      e.targetVM.accordionOpen = true;
+    }
+  };
+  var issue_filters = {
+    marked: function(v) {
+      return marked(v, {renderer: renderer});
+    },
+    stripComments: function(v) {
+      return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
+    }
+  };
+
   Vue.component('github-issue-list', GitHubIssueList.extend({
     template: '#template-github-issue-list',
     methods: {
-      toggleActive: function(e) {
-        if (e.targetVM.accordionOpen) {
-          e.targetVM.accordionOpen = false;
-        } else {
-          e.targetVM.accordionOpen = true;
-        }
-      }
+      toggleActive: toggleActive
     },
-    filters: {
-      marked: function(v) {
-        return marked(v, {renderer: renderer});
-      },
-      stripComments: function(v) {
-        return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
-      }
-    }
+    filters: issue_filters
+  }));
+  Vue.component('github-issue-accordion', GitHubIssueList.extend({
+    template: '#template-github-issue-accordion',
+    methods: {
+      toggleActive: toggleActive
+    },
+    filters: issue_filters
   }));
 
   Vue.component('vue-github', {
