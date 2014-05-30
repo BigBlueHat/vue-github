@@ -110,10 +110,17 @@
   });
 
   var GitHubMilestoneList = Fetchable.extend({
+    data: {
+      apiQueryParams: {
+        sort: 'due_date'
+      }
+    },
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
-          var url = repoBaseUrl + this.user + '/' + this.project + '/milestones';
+          var url = repoBaseUrl + this.user + '/'
+            + this.project + '/milestones?sort='
+            + this.apiQueryParams.sort;
           return url;
         }
       },
