@@ -12,7 +12,7 @@
   </a>
 
   <div id="vue-github">
-    <div v-component="vue-github" v-with="user: 'hypothesis'">
+    <div v-component="vue-github">
       <div class="ui form">
         <div class="inline fields">
           <div class="ui header field">
@@ -93,5 +93,14 @@
     <script src="marked.min.js"></script>
     <script src="vue.min.js"></script>
     <script src="vue-github.js"></script>
+    <script>
+    var app = new Vue({
+      el: '#vue-github',
+      data: {
+        user: 'hypothesis',
+        branch: 'master'
+      }
+    });
+    </script>
 </body>
 </html>

@@ -220,12 +220,7 @@
   }));
 
   Vue.component('vue-github', {
-    data: {
-      user: '',
-      project: '',
-      branch: '',
-      milestone: {}
-    },
+    lazy: true,
     filters: {
       truncate: function (v) {
         var newline = v.indexOf('\n');
@@ -235,9 +230,5 @@
         return v.replace(/T|Z/g, ' ');
       }
     }
-  });
-
-  var app = new Vue({
-    el: '#vue-github'
   });
 })();
