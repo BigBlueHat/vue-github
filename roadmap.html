@@ -67,6 +67,7 @@
         <i class="dropdown icon"></i>
         {{title}}
         <strong class="ui label red">{{open_issues}}</strong>
+        <span v-if="due_on" class="ui label" style="float: right">{{due_on | formatDate}}</span>
       </div>
       <div class="content" v-class="active: milestone.number == number">
         <div v-component="github-issue-accordion"

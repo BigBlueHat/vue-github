@@ -27,7 +27,9 @@
     return newline > -1 ? v.slice(0, newline) : v;
   });
   Vue.filter('formatDate', function (v) {
-    return v.replace(/T|Z/g, ' ');
+    if (v) {
+      return (new Date(v)).toDateString();
+    }
   });
 
   var Fetchable = Vue.extend({
