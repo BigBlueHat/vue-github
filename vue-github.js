@@ -110,7 +110,8 @@
   });
 
   var GitHubMilestoneList = Fetchable.extend({
-    paramAttributes: ['data-sort', 'data-state'],
+    paramAttributes: ['data-sort', 'data-state',
+      'data-milestone'],
     data: {
       'data-sort': 'due_date',
       'data-state': 'open'
