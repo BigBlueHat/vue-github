@@ -29,6 +29,10 @@
         <div v-component="github-milestone-accordion"
             v-with="user: user, project: project">
         </div>
+        <h3 class="ui disabled header">Completed Milestones</h3>
+        <div v-component="github-milestone-accordion"
+          v-with="user: user, project: project" data-state="closed">
+        </div>
       </div>
     </div>
   </div>

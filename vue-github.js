@@ -110,17 +110,18 @@
   });
 
   var GitHubMilestoneList = Fetchable.extend({
+    paramAttributes: ['data-sort', 'data-state'],
     data: {
-      apiQueryParams: {
-        sort: 'due_date'
-      }
+      'data-sort': 'due_date',
+      'data-state': 'open'
     },
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
           var url = repoBaseUrl + this.user + '/'
-            + this.project + '/milestones?sort='
-            + this.apiQueryParams.sort;
+            + this.project + '/milestones'
+            + '?sort=' + this.$data['data-sort']
+            + '&state=' + this.$data['data-state'];
           return url;
         }
       },
