@@ -26,7 +26,14 @@
     xhr.send();
   };
 
-  Vue.component('github-repo-list', {
+  var Fetchable = Vue.extend({
+    methods: {
+      fetchData: fetchData
+    }
+  });
+
+  /** Resource Components **/
+  var GitHubRepoList = Fetchable.extend({
     computed: {
       apiUrl: function() {
         if (this.user) {
@@ -35,17 +42,14 @@
         }
       }
     },
-    created: function () {
-      this.$watch('user', function () {
+    created: function() {
+      this.$watch('user', function() {
         this.fetchData();
       });
-    },
-    methods: {
-      fetchData: fetchData
     }
   });
 
-  Vue.component('github-branch-list', {
+  var GitHubBranchList = Fetchable.extend({
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
@@ -63,13 +67,10 @@
       this.$watch('project', function () {
         this.fetchData();
       });
-    },
-    methods: {
-      fetchData: fetchData
     }
   });
 
-  Vue.component('github-commit-list', {
+  var GitHubCommitList = Fetchable.extend({
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
@@ -90,18 +91,10 @@
       this.$watch('branch', function () {
         this.fetchData();
       });
-    },
-    methods: {
-      fetchData: fetchData
     }
   });
 
-  Vue.component('github-commit', {
-    template: '#template-github-commit'
-  });
-
-  Vue.component('github-milestone-list', {
-    template: '#template-github-milestone-list',
+  var GitHubMilestoneList = Fetchable.extend({
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
@@ -123,21 +116,10 @@
       this.$watch('project', function () {
         this.fetchData();
       });
-    },
-    methods: {
-      toggleMilestone: function(e) {
-        if (this.$parent.milestone == e.targetVM.$data) {
-          this.$parent.milestone = {};
-        } else {
-          this.$parent.milestone = e.targetVM.$data;
-        }
-      },
-      fetchData: fetchData
     }
   });
 
-  Vue.component('github-issue-list', {
-    template: '#template-github-issue-list',
+  var GitHubIssueList = Fetchable.extend({
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
@@ -165,7 +147,38 @@
       this.$watch('milestone', function () {
         this.fetchData();
       });
-    },
+    }
+  });
+
+  /** Rendering Components **/
+  Vue.component('github-repo-list', GitHubRepoList.extend({
+  }));
+
+  Vue.component('github-branch-list', GitHubBranchList.extend({
+  }));
+
+  Vue.component('github-commit-list', GitHubCommitList.extend({
+  }));
+
+  Vue.component('github-commit', {
+    template: '#template-github-commit'
+  });
+
+  Vue.component('github-milestone-list', GitHubMilestoneList.extend({
+    template: '#template-github-milestone-list',
+    methods: {
+      toggleMilestone: function(e) {
+        if (this.$parent.milestone == e.targetVM.$data) {
+          this.$parent.milestone = {};
+        } else {
+          this.$parent.milestone = e.targetVM.$data;
+        }
+      }
+    }
+  }));
+
+  Vue.component('github-issue-list', GitHubIssueList.extend({
+    template: '#template-github-issue-list',
     methods: {
       toggleActive: function(e) {
         if (e.targetVM.accordionOpen) {
@@ -173,8 +186,7 @@
         } else {
           e.targetVM.accordionOpen = true;
         }
-      },
-      fetchData: fetchData
+      }
     },
     filters: {
       marked: function(v) {
@@ -184,7 +196,7 @@
         return v.replace(/<![\s\S]*?--[ \t\n\r]*>/g,'');
       }
     }
-  });
+  }));
 
   Vue.component('vue-github', {
     data: {
