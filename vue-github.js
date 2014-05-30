@@ -223,10 +223,4 @@
       toggleActive: toggleActive
     },
   }));
-
-  Vue.component('vue-github', {
-    data: {
-      milestone: {}
-    }
-  });
 })();

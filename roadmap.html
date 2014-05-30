@@ -23,7 +23,7 @@
   </section>
 
   <div id="vue-github">
-    <div class="ui two column page grid" v-component="vue-github">
+    <div class="ui two column page grid">
       <h1 class="ui header">{{user}} / {{project}}</h1>
       <div class="column">
         <div class="ui segment"
@@ -127,7 +127,8 @@
       data: {
         user: 'hypothesis',
         project: 'hypothesis.github.io',
-        branch: 'master'
+        branch: 'master',
+        milestone: {}
       }
     });
     </script>
