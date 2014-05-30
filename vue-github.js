@@ -177,29 +177,25 @@
     template: '#template-github-commit'
   });
 
+  var toggleMilestone = function(e) {
+    if (this.$parent.milestone == e.targetVM.$data) {
+      this.$parent.milestone = {};
+    } else {
+      this.$parent.milestone = e.targetVM.$data;
+    }
+  };
+
   Vue.component('github-milestone-list', GitHubMilestoneList.extend({
     template: '#template-github-milestone-list',
     methods: {
-      toggleMilestone: function(e) {
-        if (this.$parent.milestone == e.targetVM.$data) {
-          this.$parent.milestone = {};
-        } else {
-          this.$parent.milestone = e.targetVM.$data;
-        }
-      }
+      toggleMilestone: toggleMilestone
     }
   }));
 
   Vue.component('github-milestone-accordion', GitHubMilestoneList.extend({
     template: '#template-github-milestone-accordion',
     methods: {
-      toggleMilestone: function(e) {
-        if (this.$parent.milestone == e.targetVM.$data) {
-          this.$parent.milestone = {};
-        } else {
-          this.$parent.milestone = e.targetVM.$data;
-        }
-      }
+      toggleMilestone: toggleMilestone
     }
   }));
 
