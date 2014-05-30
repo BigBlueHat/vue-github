@@ -55,7 +55,6 @@
       <i class="basic url icon"></i></a>
     <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">
       <i class="basic cancel circle icon link"></i></a></h5>
-  </h5>
   <div class="ui fluid vertical menu">
     <p class="item" v-if="!items">no milestones</p>
     <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
