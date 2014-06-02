@@ -54,7 +54,9 @@
     <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">
       <i class="basic cancel circle icon link"></i></a></h5>
   <div class="ui fluid vertical menu">
-    <p class="item" v-if="!items">no milestones</p>
+    <div class="item" v-if="!items.length">
+      <h4 class="disabled">No Milestones.</h4>
+    </div>
     <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
       v-on="click: toggleMilestone">
       {{title}}
@@ -66,7 +68,9 @@
 
   <script id="template-github-milestone-accordion" type="text/vuejs+html">
   <div class="ui fluid accordion">
-    <p class="item" v-if="!items">no milestones</p>
+    <div class="item" v-if="!items.length">
+      <h4 class="disabled">No Milestones</h4>
+    </div>
     <div class="item" v-repeat="items">
       <div class="title" v-class="active: milestone.number == number"
         v-on="click: toggleMilestone">
@@ -96,7 +100,9 @@
 
   <script id="template-github-issue-accordion" type="text/vuejs+html">
   <div class="ui accordion">
-    <p class="item" v-if="!items">no issues</p>
+    <div class="item" v-if="!items.length">
+      <h4 class="disabled">No Issues.</h4>
+    </div>
     <div class="item" v-repeat="items">
       <div v-on="click: toggleActive" v-class="active: accordionOpen" class="title">
         <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
@@ -123,7 +129,7 @@
       el: '#vue-github',
       data: {
         user: 'hypothesis',
-        project: 'h',
+        project: 'hypothesis.github.io',
         branch: 'master',
         milestone: {}
       }
