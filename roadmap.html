@@ -32,7 +32,7 @@
         </div>
         <h3 class="ui disabled header">Completed Milestones</h3>
         <div v-component="github-milestone-accordion"
-          v-with="user: user, project: 'h'" data-state="closed" data-milestone="{}">
+          v-with="user: user, project: project" data-state="closed" data-milestone="{}">
         </div>
       </div>
     </div>
@@ -58,7 +58,8 @@
     <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
       v-on="click: toggleMilestone">
       {{title}}
-      <strong class="ui label red">{{open_issues}}</strong>
+      <strong v-if="open_issues" class="ui label red">{{open_issues}}</strong>
+      <strong v-if="closed_issues" class="ui label">{{closed_issues}}</strong>
     </a>
   </div>
   </script>
@@ -71,7 +72,8 @@
         v-on="click: toggleMilestone">
         <i class="dropdown icon"></i>
         {{title}}
-        <strong class="ui label red">{{open_issues}}</strong>
+        <strong v-if="open_issues" class="ui label red">{{open_issues}}</strong>
+        <strong v-if="closed_issues" class="ui label">{{closed_issues}}</strong>
         <span v-if="due_on" class="ui label" style="float: right">{{due_on | formatDate}}</span>
       </div>
       <div class="content" v-class="active: milestone.number == number">
@@ -121,7 +123,7 @@
       el: '#vue-github',
       data: {
         user: 'hypothesis',
-        project: 'hypothesis.github.io',
+        project: 'h',
         branch: 'master',
         milestone: {}
       }

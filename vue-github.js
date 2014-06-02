@@ -112,17 +112,15 @@
   var GitHubMilestoneList = Fetchable.extend({
     paramAttributes: ['data-sort', 'data-state',
       'data-milestone'],
-    data: {
-      'data-sort': 'due_date',
-      'data-state': 'open'
-    },
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
+          var sort = this.$data['data-sort'] || 'due_date';
+          var state = this.$data['data-state'] || 'open';
           var url = repoBaseUrl + this.user + '/'
             + this.project + '/milestones'
-            + '?sort=' + this.$data['data-sort']
-            + '&state=' + this.$data['data-state'];
+            + '?sort=' + sort
+            + '&state=' + state;
           return url;
         }
       },
@@ -150,6 +148,9 @@
           var url = repoBaseUrl + this.user + '/' + this.project + '/issues';
           if (this.milestone && this.milestone.number) {
             url += '?milestone=' + this.milestone.number;
+            if (this.milestone.state == 'closed') {
+              url += '&state=all';
+            }
           }
           return url;
         }
