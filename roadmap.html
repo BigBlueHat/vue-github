@@ -22,18 +22,16 @@
     GitHub projects (aka repos).</p>
   </section>
 
-  <div id="vue-github">
-    <div class="ui one column page grid">
+  <div class="ui one column page grid">
+    <div id="roadmap-hypothesis" class="column">
       <h1 class="ui header">{{user}} / {{project}}</h1>
-      <div class="column">
-        <div v-component="github-milestone-accordion"
-            v-with="user: user, project: project"
-            data-milestone="{}">
-        </div>
-        <h3 class="ui disabled header">Completed Milestones</h3>
-        <div v-component="github-milestone-accordion"
-          v-with="user: user, project: project" data-state="closed" data-milestone="{}">
-        </div>
+      <div v-component="github-milestone-accordion"
+          v-with="user: user, project: project"
+          data-milestone="{}">
+      </div>
+      <h3 class="ui disabled header">Completed Milestones</h3>
+      <div v-component="github-milestone-accordion"
+        v-with="user: user, project: project" data-state="closed" data-milestone="{}">
       </div>
     </div>
   </div>
@@ -126,7 +124,7 @@
     <script src="vue-github.js"></script>
     <script>
     var app = new Vue({
-      el: '#vue-github',
+      el: '#roadmap-hypothesis',
       data: {
         user: 'hypothesis',
         project: 'hypothesis.github.io',
