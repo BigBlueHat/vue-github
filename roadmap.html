@@ -22,7 +22,7 @@
     GitHub projects (aka repos).</p>
   </section>
 
-  <div class="ui one column page grid">
+  <div class="ui two column grid">
     <div id="roadmap-hypothesis" class="column">
       <h1 class="ui header">{{user}} / {{project}}</h1>
       <div v-component="github-milestone-accordion"
@@ -34,6 +34,19 @@
         v-with="user: user, project: project" data-state="closed" data-milestone="{}">
       </div>
     </div>
+
+    <div id="roadmap-h" class="column">
+      <h1 class="ui header">{{user}} / {{project}}</h1>
+      <div v-component="github-milestone-accordion"
+          v-with="user: user, project: project"
+          data-milestone="{}">
+      </div>
+      <h3 class="ui disabled header">Completed Milestones</h3>
+      <div v-component="github-milestone-accordion"
+        v-with="user: user, project: project" data-state="closed" data-milestone="{}">
+      </div>
+    </div>
+
   </div>
 
   <script id="template-github-commit" type="text/vuejs+html">
@@ -123,11 +136,20 @@
     <script src="vue.min.js"></script>
     <script src="vue-github.js"></script>
     <script>
-    var app = new Vue({
+    var hypothesis = new Vue({
       el: '#roadmap-hypothesis',
       data: {
         user: 'hypothesis',
         project: 'hypothesis.github.io',
+        branch: 'master',
+        milestone: {}
+      }
+    });
+    var h = new Vue({
+      el: '#roadmap-h',
+      data: {
+        user: 'hypothesis',
+        project: 'h',
         branch: 'master',
         milestone: {}
       }
