@@ -36,7 +36,18 @@
     </div>
 
     <div id="roadmap-h" class="column">
-      <h1 class="ui header">{{user}} / {{project}}</h1>
+      <h1 class="ui huge simple menu" v-component="github-repo-list" v-with="user: user, project: project"
+        v-on="click: this.$el.firstElementChild.classList.toggle('visible')">
+        <div class="ui inline dropdown item">
+          <strong v-if="project" class="text">{{project}}</strong>
+          <strong v-if="!project" class="text"><span style="color:#AAA">pick a repo</span></strong>
+          <i class="dropdown icon" v-class="disabled: !project"></i>
+          <div class="menu">
+            <div class="item" v-repeat="items" v-on="click: project = name"
+               v-class="active: project == name">{{name}}</div>
+          </div>
+        </div>
+      </h1>
       <div v-component="github-milestone-accordion"
           v-with="user: user, project: project"
           data-milestone="{}">
