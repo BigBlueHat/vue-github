@@ -211,6 +211,13 @@
     }
   }));
 
+  Vue.component('github-milestone-flattened', GitHubMilestoneList.extend({
+    template: '#template-github-milestone-flattened',
+    methods: {
+      toggleMilestone: toggleMilestone
+    }
+  }));
+
   var toggleActive = function(e) {
     if (e.targetVM.accordionOpen) {
       e.targetVM.accordionOpen = false;
@@ -223,12 +230,18 @@
     template: '#template-github-issue-list',
     methods: {
       toggleActive: toggleActive
-    },
+    }
   }));
   Vue.component('github-issue-accordion', GitHubIssueList.extend({
     template: '#template-github-issue-accordion',
     methods: {
       toggleActive: toggleActive
-    },
+    }
+  }));
+  Vue.component('github-issue-flattened', GitHubIssueList.extend({
+    template: '#template-github-issue-flattened',
+    methods: {
+      toggleActive: toggleActive
+    }
   }));
 })();
