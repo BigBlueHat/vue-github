@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Roadmap Demo - vue-github</title>
   <link rel="stylesheet" type="text/css" href="semantic-ui/css/semantic.min.css" />
+  <link rel="stylesheet" type="text/css" href="http://docs.hypothes.is/css/main.css" />
   <style type="text/css">
   .accordion .title.active{position:relative}
   .accordion .content{overflow:auto}
@@ -98,11 +99,11 @@
       <i class="list layout basic outline icon"></i>
       <div class="content" v-class="active: milestone.number == item.number">
         <div class="header">
-          <a href="{{htmlUrl}}" target="_blank"><i class="small basic url icon"></i></a>
-          {{item.title}}
-          <strong v-if="item.open_issues" class="ui label red">{{item.open_issues}}</strong>
-          <strong v-if="item.closed_issues" class="ui label">{{item.closed_issues}}</strong>
-          <span v-if="item.due_on" class="ui label" style="float: right">{{item.due_on | formatDate}}</span>
+          <a href="{{htmlUrl}}" target="_blank">
+            {{item.title}}</a>
+          <strong v-if="item.open_issues" class="ui label red" title="open issues">{{item.open_issues}}</strong>
+          <strong v-if="item.closed_issues" class="ui label" title="closed issues">{{item.closed_issues}}</strong>
+          <span v-if="item.due_on" class="ui label" style="float: right" title="due date">{{item.due_on | formatDate}}</span>
         </div>
         <div v-component="github-issue-flattened"
             v-with="user: user, project: project, milestone: item, items: $root.items">
@@ -149,8 +150,8 @@
     <li class="item" v-repeat="items">
       <div class="content">
         <div class="header">
-          <a href="{{html_url}}" target="_blank"><i class="small basic url icon"></i></a>
-          {{title}}
+          <a href="{{html_url}}" target="_blank">
+            {{title}}</a>
           <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
         </div>
       </div>
