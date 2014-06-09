@@ -27,12 +27,11 @@
     <div id="roadmap-hypothesis" class="column">
       <h1 class="ui header">{{user}} / {{project}}</h1>
       <div v-component="github-milestone-flattened"
-          v-with="user: user, project: project"
-          data-milestone="{}">
+          v-with="user: user, project: project">
       </div>
       <h3 class="ui disabled header">Completed Milestones</h3>
       <div v-component="github-milestone-accordion"
-        v-with="user: user, project: project" data-state="closed" data-milestone="{}">
+        v-with="user: user, project: project" data-state="closed">
       </div>
     </div>
   </div>
