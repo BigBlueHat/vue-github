@@ -149,13 +149,16 @@
   });
 
   var GitHubIssueList = Fetchable.extend({
+    paramAttributes: ['data-milestone'],
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
           var url = repoBaseUrl + this.user + '/' + this.project + '/issues';
-          if (this.milestone && this.milestone.number) {
-            url += '?milestone=' + this.milestone.number;
-            if (this.milestone.state == 'closed') {
+          if (this['data-milestone'] || (this.milestone && this.milestone.number)) {
+            var number = this['data-milestone'] || this.milestone.number;
+            console.log(number, this['data-milestone'], this.milestone);
+            url += '?milestone=' + number;
+            if (this.milestone && this.milestone.state == 'closed') {
               url += '&state=all';
             }
           }
