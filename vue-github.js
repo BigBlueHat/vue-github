@@ -156,7 +156,6 @@
           var url = repoBaseUrl + this.user + '/' + this.project + '/issues';
           if (this['data-milestone'] || (this.milestone && this.milestone.number)) {
             var number = this['data-milestone'] || this.milestone.number;
-            console.log(number, this['data-milestone'], this.milestone);
             url += '?milestone=' + number;
             if (this.milestone && this.milestone.state == 'closed') {
               url += '&state=all';
