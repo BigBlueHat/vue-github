@@ -117,7 +117,8 @@
   });
 
   var GitHubMilestoneList = Fetchable.extend({
-    paramAttributes: ['data-sort', 'data-state'],
+    paramAttributes: ['data-sort', 'data-state',
+      'data-milestone'],
     computed: {
       apiUrl: function() {
         if (this.user && this.project) {
