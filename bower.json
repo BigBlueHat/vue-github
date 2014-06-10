@@ -1,0 +1,28 @@
+{
+  "name": "vue-github",
+  "main": "vue-github.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/BigBlueHat/vue-github",
+  "authors": [
+    "BigBlueHat <byoung@bigbluehat.com>"
+  ],
+  "description": "Vue.js-based GitHub components",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "github"
+  ],
+  "license": "Apache License 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pouchdb": "~2.2.3",
+    "semantic": "~0.18.0"
+  }
+}
