@@ -46,7 +46,6 @@
         </div>
         <ul v-component="github-commit-list"
             v-with="user: user, project: project, branch: branch">
-          <li v-component="github-commit" v-repeat="items"></li>
         </ul>
       </div>
       <div class="ui segment"
@@ -79,20 +78,9 @@
       </div>
   </div>
 
-  <script id="template-github-commit" type="text/vuejs+html">
-  <a href="{{html_url}}" target="_blank" class="commit">
-  {{sha.slice(0, 7)}}</a>
-  - <span class="message">{{commit.message | truncate}}</span>
-  <br>
-  by <strong class="author">{{commit.author.name}}</strong>
-  at <strong class="date">{{commit.author.date | formatDate}}</strong>
-  </script>
-
-    <script src="marked.min.js"></script>
-    <script src="vue.min.js"></script>
-    <script src="vue-github.js"></script>
+    <script src="dist/bundle.js"></script>
     <script>
-    var app = new Vue({
+    var app = new VueGithub({
       el: '#vue-github',
       data: {
         user: 'hypothesis',

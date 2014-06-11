@@ -42,85 +42,9 @@
     </div>
   </div>
 
-  <script id="template-github-commit" type="text/vuejs+html">
-  <a href="{{html_url}}" target="_blank" class="commit">
-  {{sha.slice(0, 7)}}</a>
-  - <span class="message">{{commit.message | truncate}}</span>
-  <br>
-  by <strong class="author">{{commit.author.name}}</strong>
-  at <strong class="date">{{commit.author.date | formatDate}}</strong>
-  </script>
-
-  <script id="template-github-milestone-list" type="text/vuejs+html">
-  <h5 class="ui header">Milestones
-    <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">
-      <i class="basic url icon"></i></a>
-    <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">
-      <i class="basic cancel circle icon link"></i></a></h5>
-  <div class="ui fluid vertical menu">
-    <p class="item" v-if="!items">no milestones</p>
-    <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
-      v-on="click: toggleMilestone">
-      {{title}}
-      <strong class="ui label red">{{open_issues}}</strong>
-    </a>
-  </div>
-  </script>
-
-  <script id="template-github-milestone-accordion" type="text/vuejs+html">
-  <div class="ui accordion">
-    <p class="item" v-if="!items">no milestones</p>
-    <div class="item" v-repeat="items">
-      <div class="title" v-class="active: milestone.number == number"
-        v-on="click: toggleMilestone">
-        <i class="dropdown icon"></i>
-        {{title}}
-        <strong class="ui label red">{{open_issues}}</strong>
-      </div>
-      <div class="content" v-class="active: milestone.number == number">
-        <div v-component="github-issue-accordion"
-            v-with="user: user, project: project, milestone: milestone, items: $root.items">
-        </div>
-      </div>
-    </div>
-  </div>
-  </script>
-
-  <script id="template-github-issue-list" type="text/vuejs+html">
-  <h5 class="ui header">
-    <em v-if="milestone.title">{{milestone.title}}</em> Issues
-    <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">
-      <i class="basic url icon"></i></a></h5>
-  <div v-component="github-issue-accordion"
-    v-with="user: user, project: project, milestone: milestone, items: items"></div>
-  </script>
-
-  <script id="template-github-issue-accordion" type="text/vuejs+html">
-  <div class="ui accordion">
-    <p class="item" v-if="!items">no issues</p>
-    <div class="item" v-repeat="items">
-      <div v-on="click: toggleActive" v-class="active: accordionOpen" class="title">
-        <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
-        {{title}}
-        <a v-show="accordionOpen" class="ui top right attached label"
-          href="{{html_url}}" target="_blank"><i class="small basic url icon"></i></a>
-        <span v-if="comments" class="ui label"><i class="ui comment icon"></i> {{comments}}</span>
-      </div>
-      <div class="content" v-class="active: accordionOpen">
-        <div v-if="body" v-html="body | stripComments | marked"></div>
-        <div v-if="!body">
-          <em>No description provided.</em>
-        </div>
-      </div>
-    </div>
-  </div>
-  </script>
-
-    <script src="marked.min.js"></script>
-    <script src="vue.min.js"></script>
-    <script src="vue-github.js"></script>
+    <script src="dist/bundle.js"></script>
     <script>
-    var app = new Vue({
+    var app = new VueGithub({
       el: '#vue-github',
       data: {
         user: 'hypothesis',

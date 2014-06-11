@@ -1,0 +1,6 @@
+<h5 class="ui header">
+  <em v-if="milestone.title">{{milestone.title}}</em> Issues
+  <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">
+    <i class="basic url icon"></i></a></h5>
+<div v-component="github-issue-accordion"
+  v-with="user: user, project: project, milestone: milestone, items: items"></div>

@@ -1,0 +1,20 @@
+<div class="ui fluid accordion">
+  <div class="item" v-if="!items.length">
+    <h4 class="disabled">No Issues.</h4>
+  </div>
+  <div class="item" v-repeat="items">
+    <div v-on="click: toggleActive" v-class="active: accordionOpen" class="title">
+      <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
+      {{title}}
+      <a v-show="accordionOpen" class="ui top right attached label"
+        href="{{html_url}}" target="_blank"><i class="small basic url icon"></i></a>
+      <span v-if="comments" class="ui label"><i class="ui comment icon"></i> {{comments}}</span>
+    </div>
+    <div class="content" v-class="active: accordionOpen">
+      <div v-if="body" v-html="body | stripComments | marked"></div>
+      <div v-if="!body">
+        <em>No description provided.</em>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<a href="{{html_url}}" target="_blank" class="commit">
+{{sha.slice(0, 7)}}</a>
+- <span class="message">{{commit.message | truncate}}</span>
+<br>
+by <strong class="author">{{commit.author.name}}</strong>
+at <strong class="date">{{commit.author.date | formatDate}}</strong>

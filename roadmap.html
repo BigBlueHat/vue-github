@@ -88,29 +88,6 @@
   </div>
   </script>
 
-  <script id="template-github-milestone-accordion" type="text/vuejs+html">
-  <div class="ui fluid accordion">
-    <div class="item" v-if="!items.length">
-      <h4 class="disabled">No Milestones</h4>
-    </div>
-    <div class="item" v-repeat="items">
-      <div class="title" v-class="active: milestone.number == number"
-        v-on="click: toggleMilestone">
-        <i class="dropdown icon"></i>
-        {{title}}
-        <strong v-if="open_issues" class="ui label red">{{open_issues}}</strong>
-        <strong v-if="closed_issues" class="ui label">{{closed_issues}}</strong>
-        <span v-if="due_on" class="ui label" style="float: right">{{due_on | formatDate}}</span>
-      </div>
-      <div class="content" v-class="active: milestone.number == number">
-        <div v-component="github-issue-accordion"
-            v-with="user: user, project: project, milestone: milestone, items: $root.items">
-        </div>
-      </div>
-    </div>
-  </div>
-  </script>
-
   <script id="template-github-issue-list" type="text/vuejs+html">
   <h5 class="ui header">
     <em v-if="milestone.title">{{milestone.title}}</em> Issues
@@ -121,33 +98,11 @@
   </script>
 
   <script id="template-github-issue-accordion" type="text/vuejs+html">
-  <div class="ui accordion">
-    <div class="item" v-if="!items.length">
-      <h4 class="disabled">No Issues.</h4>
-    </div>
-    <div class="item" v-repeat="items">
-      <div v-on="click: toggleActive" v-class="active: accordionOpen" class="title">
-        <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
-        {{title}}
-        <a v-show="accordionOpen" class="ui top right attached label"
-          href="{{html_url}}" target="_blank"><i class="small basic url icon"></i></a>
-        <span v-if="comments" class="ui label"><i class="ui comment icon"></i> {{comments}}</span>
-      </div>
-      <div class="content" v-class="active: accordionOpen">
-        <div v-if="body" v-html="body | stripComments | marked"></div>
-        <div v-if="!body">
-          <em>No description provided.</em>
-        </div>
-      </div>
-    </div>
-  </div>
   </script>
 
-    <script src="marked.min.js"></script>
-    <script src="vue.min.js"></script>
-    <script src="vue-github.js"></script>
+    <script src="dist/bundle.js"></script>
     <script>
-    var hypothesis = new Vue({
+    var hypothesis = new VueGithub({
       el: '#roadmap-hypothesis',
       data: {
         user: 'hypothesis',
@@ -156,7 +111,7 @@
         milestone: {}
       }
     });
-    var h = new Vue({
+    var h = new VueGithub({
       el: '#roadmap-h',
       data: {
         user: 'hypothesis',

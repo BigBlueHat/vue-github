@@ -1,0 +1,21 @@
+{
+  "name": "vue-github",
+  "version": "0.1.0",
+  "description": "Vue.js-based GitHub components",
+  "author": "BigBlueHat",
+  "license": "Apache License 2.0",
+  "repository": "https://github.com/BigBlueHat/vue-github.git",
+  "main": "src/main.js",
+  "dependencies": {
+    "marked": "~0.3.2",
+    "vue": "~0.10.5"
+  },
+  "devDependencies": {
+    "watchify": "~0.6.1",
+    "partialify": "~3.0.0",
+    "insert-css": "~0.1.1"
+  },
+  "scripts": {
+    "dev": "watchify -e src/main.js -t partialify -o dist/bundle.js"
+  }
+}

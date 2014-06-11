@@ -4,16 +4,33 @@
 
 Very much in-progress....
 
-## index.html
+## Use
 
-The main index.html is simply a demo of the major `github-*` components being
-built. It's a promising start. :smiley_cat:
+```html
+<script src="dist/bundle.js"></script>
+```
 
-## Roadmap Building
+This includes [Vue.js](http://vuejs.org/),
+[marked.js](https://github.com/chjj/marked) (for Markdown parsing),
+and all of vue-github.
 
-Using the `github-milestone-list` and `github-issue-list` it's possible to
-build a (currently) basic roadmap browsing system as seen in the `roadmap.html`
-file.
+Currently, vue-github exposes one global `VueGithub` for use in inline
+`<script></script>`'s as seen in the various HTML example files in this repo.
+
+## Development
+
+vue-github now uses [Browserify](http://browserify.org/). To build your own
+`bundle.js` variation, checkout `src/main.js` which does all the initial
+`require()`ing.
+
+Then do (assuming you have node.js & npm installed):
+
+```
+npm install
+npm run dev
+```
+
+...and `dist/bundle.js` will have your variation.
 
 # License
 
