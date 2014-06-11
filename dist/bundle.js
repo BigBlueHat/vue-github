@@ -5915,6 +5915,15 @@ module.exports = Fetchable.extend({
     this.$watch('milestone', function () {
       this.fetchData();
     });
+  },
+  methods: {
+    toggleActive: function(e) {
+      if (e.targetVM.accordionOpen) {
+        e.targetVM.accordionOpen = false;
+      } else {
+        e.targetVM.accordionOpen = true;
+      }
+    }
   }
 });
 
