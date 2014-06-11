@@ -3,14 +3,6 @@ var Fetchable = require('../fetchable');
 var siteBaseUrl = 'https://github.com/';
 var repoBaseUrl = 'https://api.github.com/repos/';
 
-var toggleMilestone = function(e) {
-  if (this.$parent.milestone == e.targetVM.$data) {
-    this.$parent.milestone = {};
-  } else {
-    this.$parent.milestone = e.targetVM.$data;
-  }
-};
-
 module.exports = Fetchable.extend({
   template: require('./template.html'),
   paramAttributes: ['data-sort', 'data-state',
@@ -43,6 +35,12 @@ module.exports = Fetchable.extend({
     });
   },
   methods: {
-    toggleMilestone: toggleMilestone
+    toggleMilestone: function(e) {
+      if (this.$parent.milestone == e.targetVM.$data) {
+        this.$parent.milestone = {};
+      } else {
+        this.$parent.milestone = e.targetVM.$data;
+      }
+    }
   }
 });
