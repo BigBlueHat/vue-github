@@ -1,5 +1,6 @@
 var Vue = require('vue');
 
+var siteBaseUrl = 'https://github.com/';
 var repoBaseUrl = 'https://api.github.com/repos/';
 
 module.exports = Vue.extend({
@@ -14,6 +15,20 @@ module.exports = Vue.extend({
           url += this.milestone;
         } else {
           url += this.milestone.number;
+        }
+        return url;
+      }
+    },
+    htmlUrl: function() {
+      var url;
+      if (this.user && this.project) {
+        var url = siteBaseUrl + this.user + '/' + this.project + '/issues';
+        if (!isNaN(this.milestone)) {
+          url += '?milestone=' + this.milestone;
+        } else if (this.milestone && this.milestone.number) {
+          url += '?milestone=' + this.milestone.number;
+        } else {
+          url += '/milestones';
         }
         return url;
       }

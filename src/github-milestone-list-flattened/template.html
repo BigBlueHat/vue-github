@@ -8,7 +8,7 @@
     <i class="list layout basic outline icon"></i>
     <div class="content" v-class="active: milestone.number == item.number">
       <div class="header">
-        <a href="{{htmlUrl}}" target="_blank">
+        <a href="{{htmlUrl}}?milestone={{item.number}}" target="_blank">
           {{item.title}}</a>
         <strong v-if="item.open_issues" class="ui label red" title="open issues">{{item.open_issues}}</strong>
         <strong v-if="item.closed_issues" class="ui label" title="closed issues">{{item.closed_issues}}</strong>
