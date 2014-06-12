@@ -1,23 +1,15 @@
 <div class="ui fluid list">
-  <div class="item" v-if="!items.length">
-    <div class="content">
-      <h4 class="header disabled">No Milestones</h4>
-    </div>
-  </div>
-  <div class="item" v-repeat="item: items">
+  <div class="item">
     <i class="list layout basic outline icon"></i>
-    <div class="content" v-class="active: milestone.number == item.number">
+    <div class="content">
       <div class="header">
         <a href="{{htmlUrl}}" target="_blank">
-          {{item.title}}</a>
-        <strong v-if="item.open_issues" class="ui label red" title="open issues">{{item.open_issues}}</strong>
-        <strong v-if="item.closed_issues" class="ui label" title="closed issues">{{item.closed_issues}}</strong>
-        <span v-if="item.due_on" class="ui label" style="float: right" title="due date">{{item.due_on | formatDate}}</span>
+          {{milestone.title}}</a>
+        <strong v-if="milestone.open_issues" class="ui label red" title="open issues">{{milestone.open_issues}}</strong>
+        <strong v-if="milestone.closed_issues" class="ui label" title="closed issues">{{milestone.closed_issues}}</strong>
+        <span v-if="milestone.due_on" class="ui label" style="float: right" title="due date">{{milestone.due_on | formatDate}}</span>
       </div>
-      <div v-component="github-issue-flattened"
-          v-with="user: user, project: project, milestone: item, items: $root.items">
-      </div>
-      <div v-html="item.description | stripComments | marked"></div>
+      <div v-if="milestone.description" v-html="milestone.description | stripComments | marked"></div>
     </div>
   </div>
 </div>

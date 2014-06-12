@@ -14,6 +14,7 @@ window.VueGithub = Vue.extend({
     'github-milestone-list': require('./github-milestone-list'),
     'github-milestone-accordion': require('./github-milestone-accordion'),
     'github-milestone-flattened': require('./github-milestone-flattened'),
+    'github-milestone-list-flattened': require('./github-milestone-list-flattened'),
     'github-issue-list': require('./github-issue-list'),
     'github-issue-accordion': require('./github-issue-accordion'),
     'github-issue-flattened': require('./github-issue-flattened')

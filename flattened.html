@@ -26,14 +26,28 @@
   <div class="ui one column page grid">
     <div id="roadmap-hypothesis" class="column">
       <h1 class="ui header">{{user}} / {{project}}</h1>
-      <div v-component="github-milestone-flattened"
-          v-with="user: user, project: project"
+      <p>All the open milestones from {{user}} / {{project}} + their
+      descriptions which may include vue-github markup for issue lists from
+      other repositories. Sadly, there are only two sort options:
+      <code>due_date</code> and <code>completeness</code>.</p>
+      <div v-component="github-milestone-list-flattened"
+          v-with="user: user, project: project" data-sort="completeness"
           data-milestone="{}">
-      </div>
-      <h3 class="ui disabled header">Completed Milestones</h3>
+        </div>
+      <h1 class="ui header">Specific Milestone</h1>
+      <p>This milestone is chosen entirely via markup and could be from any
+      public GitHub repo. It also includes the "embeded" markup from the
+      description of this milestone.</p>
+      <github-milestone-flattened user="hypothesis" project="hypothesis.github.io" milestone="5">
+      </github-milestone-flattened>
+      <h1 class="ui header">Just the issues from a milestone</h1>
+      <p>Also completely declared via markup</p>
+      <github-issue-flattened user="hypothesis" project="hypothesis.github.io" milestone="2">
+      </github-issue-flattened>
+      <!--h3 class="ui disabled header">Completed Milestones</h3>
       <div v-component="github-milestone-accordion"
         v-with="user: user, project: project" data-state="closed" data-milestone="{}">
-      </div>
+      </div-->
     </div>
   </div>
 

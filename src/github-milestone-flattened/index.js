@@ -1,5 +1,44 @@
-var GitHubMilestoneList = require('../github-milestone-list');
+var Vue = require('vue');
 
-module.exports = GitHubMilestoneList.extend({
-  template: require('./template.html')
+var repoBaseUrl = 'https://api.github.com/repos/';
+
+module.exports = Vue.extend({
+  template: require('./template.html'),
+  paramAttributes: ['user', 'project', 'milestone'],
+  computed: {
+    apiUrl: function() {
+      if (this.user && this.project) {
+        var url = repoBaseUrl + this.user + '/'
+          + this.project + '/milestones/';
+        if (!isNaN(this.milestone)) {
+          url += this.milestone;
+        } else {
+          url += this.milestone.number;
+        }
+        return url;
+      }
+    }
+  },
+  created: function() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData: function () {
+      if (!this.apiUrl) return false;
+
+      var apiUrlHash = btoa(this.apiUrl),
+          xhr = new XMLHttpRequest(),
+          self = this;
+      if (window.localStorage[apiUrlHash]) {
+        self.milestone = JSON.parse(window.localStorage[apiUrlHash]);
+      } else {
+        xhr.open('GET', self.apiUrl);
+        xhr.onload = function () {
+          window.localStorage[apiUrlHash] = xhr.responseText;
+          self.milestone = JSON.parse(xhr.responseText);
+        };
+        xhr.send();
+      }
+    }
+  }
 });
