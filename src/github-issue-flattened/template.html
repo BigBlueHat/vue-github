@@ -3,7 +3,9 @@
     <div class="content">
       <div class="header">
         <a href="{{html_url}}" target="_blank">
-          {{title}}</a>
+        {{title}}
+        </a>
+        <small class="muted">{{project}}/#{{number}}</small>
         <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
       </div>
     </div>
