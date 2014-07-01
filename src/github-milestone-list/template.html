@@ -10,7 +10,7 @@
   <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"
     v-on="click: toggleMilestone">
     {{title}}
-    <strong v-if="open_issues" class="ui label red">{{open_issues}}</strong>
-    <strong v-if="closed_issues" class="ui label">{{closed_issues}}</strong>
+    <strong v-if="open_issues" class="ui label red" title="open issues">{{open_issues}}</strong>
+    <strong v-if="closed_issues" class="ui label" title="closed issues">{{closed_issues}}</strong>
   </a>
 </div>
