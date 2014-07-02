@@ -5888,7 +5888,7 @@ module.exports = Fetchable.extend({
     apiUrl: function() {
       var url, number;
       if (this.user && this.project) {
-        url = repoBaseUrl + this.user + '/' + this.project + '/issues';
+        url = repoBaseUrl + this.user + '/' + this.project + '/issues?';
         if (this.milestone && this.milestone.number) {
           number = this.milestone.number;
         } else if (this['data-milestone']) {
@@ -5897,10 +5897,13 @@ module.exports = Fetchable.extend({
           number = this.milestone;
         }
         if (!isNaN(number)) {
-          url += '?milestone=' + number;
+          url += 'milestone=' + number;
           if (this.milestone && this.milestone.state == 'closed') {
             url += '&state=all';
           }
+        }
+        if (this.labels) {
+          url += '&labels=' + this.labels.join(',');
         }
         return url;
       }
@@ -5920,6 +5923,9 @@ module.exports = Fetchable.extend({
       this.fetchData();
     });
     this.$watch('milestone', function () {
+      this.fetchData();
+    });
+    this.$watch('labels', function () {
       this.fetchData();
     });
   },
@@ -5963,17 +5969,22 @@ module.exports = Fetchable.extend({
   },
   methods: {
     toggleActive: function(e) {
-      if (e.targetVM.accordionOpen) {
-        e.targetVM.accordionOpen = false;
+      var name = e.targetVM.name;
+      var i = this.labels.indexOf(name);
+      // if the labels already in the active list,
+      if (i >= 0) {
+        // remove it.
+        this.labels.splice(i, 1);
       } else {
-        e.targetVM.accordionOpen = true;
+        // otherwise, add it.
+        this.labels.push(name);
       }
     }
   }
 });
 
 },{"../fetchable":28,"./template.html":43}],43:[function(require,module,exports){
-module.exports = '<div v-if="items" class="ui labels">\n  <span v-repeat="items" class="ui label" v-style="background-color: \'#\' + color">{{name}}</span>\n</div>\n';
+module.exports = '<div v-if="items" class="ui list">\n  <span class="ui item"\n    v-repeat="items"\n    v-style="background-color: (labels.indexOf(name) >= 0 ? \'#\' + color : \'transparent\'),\n      font-weight: (labels.indexOf(name) >= 0 ? \'bold\' : \'normal\')"\n    v-class="active: labels.indexOf(name) >= 0"\n    v-on="click: toggleActive">\n      <span class="ui circular label"\n        v-style="background-color: \'#\' + color,\n          display: (labels.indexOf(name) >= 0 ? \'none\' : \'\')"></span>\n      {{name}}\n    </span>\n</div>\n';
 },{}],44:[function(require,module,exports){
 var GitHubMilestoneList = require('../github-milestone-list');
 

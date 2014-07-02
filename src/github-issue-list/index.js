@@ -10,7 +10,7 @@ module.exports = Fetchable.extend({
     apiUrl: function() {
       var url, number;
       if (this.user && this.project) {
-        url = repoBaseUrl + this.user + '/' + this.project + '/issues';
+        url = repoBaseUrl + this.user + '/' + this.project + '/issues?';
         if (this.milestone && this.milestone.number) {
           number = this.milestone.number;
         } else if (this['data-milestone']) {
@@ -19,10 +19,13 @@ module.exports = Fetchable.extend({
           number = this.milestone;
         }
         if (!isNaN(number)) {
-          url += '?milestone=' + number;
+          url += 'milestone=' + number;
           if (this.milestone && this.milestone.state == 'closed') {
             url += '&state=all';
           }
+        }
+        if (this.labels) {
+          url += '&labels=' + this.labels.join(',');
         }
         return url;
       }
@@ -42,6 +45,9 @@ module.exports = Fetchable.extend({
       this.fetchData();
     });
     this.$watch('milestone', function () {
+      this.fetchData();
+    });
+    this.$watch('labels', function () {
       this.fetchData();
     });
   },
