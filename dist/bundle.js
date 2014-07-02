@@ -5937,15 +5937,53 @@ module.exports = Fetchable.extend({
 },{"../fetchable":28,"./template.html":41}],41:[function(require,module,exports){
 module.exports = '<h5 class="ui header">\n  <em v-if="milestone.title">{{milestone.title}}</em> Issues\n  <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">\n    <i class="basic url icon"></i></a></h5>\n<div v-component="github-issue-accordion"\n  v-with="user: user, project: project, milestone: milestone, items: items"></div>\n';
 },{}],42:[function(require,module,exports){
+var Fetchable = require('../fetchable');
+
+var repoBaseUrl = 'https://api.github.com/repos/';
+
+module.exports = Fetchable.extend({
+  template: require('./template.html'),
+  paramAttributes: ['user', 'project'],
+  computed: {
+    apiUrl: function() {
+      var url, number;
+      if (this.user && this.project) {
+        url = repoBaseUrl + this.user + '/' + this.project + '/labels';
+        return url;
+      }
+    }
+  },
+  created: function () {
+    this.$watch('user', function () {
+      this.fetchData();
+    });
+    this.$watch('project', function () {
+      this.fetchData();
+    });
+  },
+  methods: {
+    toggleActive: function(e) {
+      if (e.targetVM.accordionOpen) {
+        e.targetVM.accordionOpen = false;
+      } else {
+        e.targetVM.accordionOpen = true;
+      }
+    }
+  }
+});
+
+},{"../fetchable":28,"./template.html":43}],43:[function(require,module,exports){
+module.exports = '<div v-if="items" class="ui labels">\n  <span v-repeat="items" class="ui label" v-style="background-color: \'#\' + color">{{name}}</span>\n</div>\n';
+},{}],44:[function(require,module,exports){
 var GitHubMilestoneList = require('../github-milestone-list');
 
 module.exports = GitHubMilestoneList.extend({
   template: require('./template.html')
 });
 
-},{"../github-milestone-list":48,"./template.html":43}],43:[function(require,module,exports){
+},{"../github-milestone-list":50,"./template.html":45}],45:[function(require,module,exports){
 module.exports = '<div class="ui fluid accordion">\n  <div class="item" v-if="!items.length">\n    <h4 class="disabled">No Milestones</h4>\n  </div>\n  <div class="item" v-repeat="items">\n    <div class="title" v-class="active: milestone.number == number"\n      v-on="click: toggleMilestone">\n      <i class="dropdown icon"></i>\n      {{title}}\n      <strong v-if="open_issues" class="ui label red" title="open issues">{{open_issues}}</strong>\n      <strong v-if="closed_issues" class="ui label" title="closed issues">{{closed_issues}}</strong>\n      <span v-if="due_on" class="ui label" style="float: right">{{due_on | formatDate}}</span>\n    </div>\n    <div class="content" v-class="active: milestone.number == number">\n      <div v-component="github-issue-accordion"\n          v-with="user: user, project: project, milestone: milestone, items: $root.items">\n      </div>\n    </div>\n  </div>\n</div>\n';
-},{}],44:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 var Vue = require('vue');
 
 var siteBaseUrl = 'https://github.com/';
@@ -6006,9 +6044,9 @@ module.exports = Vue.extend({
   }
 });
 
-},{"./template.html":45,"vue":22}],45:[function(require,module,exports){
+},{"./template.html":47,"vue":22}],47:[function(require,module,exports){
 module.exports = '<div class="ui fluid list">\n  <div class="item">\n    <i class="list layout basic outline icon"></i>\n    <div class="content">\n      <div class="header">\n        <a href="{{htmlUrl}}" target="_blank">\n          {{milestone.title}}</a>\n        <strong v-if="milestone.open_issues" class="ui label red" title="open issues">{{milestone.open_issues}}</strong>\n        <strong v-if="milestone.closed_issues" class="ui label" title="closed issues">{{milestone.closed_issues}}</strong>\n        <span v-if="milestone.due_on" class="ui label" style="float: right" title="due date">{{milestone.due_on | formatDate}}</span>\n      </div>\n      <div v-if="milestone.description" v-html="milestone.description | stripComments | marked"></div>\n    </div>\n  </div>\n</div>\n';
-},{}],46:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 var GitHubMilestoneList = require('../github-milestone-list');
 
 var siteBaseUrl = 'https://github.com/';
@@ -6025,9 +6063,9 @@ module.exports = GitHubMilestoneList.extend({
   }
 });
 
-},{"../github-milestone-list":48,"./template.html":47}],47:[function(require,module,exports){
+},{"../github-milestone-list":50,"./template.html":49}],49:[function(require,module,exports){
 module.exports = '<div class="ui fluid list">\n  <div class="item" v-if="!items.length">\n    <div class="content">\n      <h4 class="header disabled">No Milestones</h4>\n    </div>\n  </div>\n  <div class="item" v-repeat="item: items">\n    <i class="list layout basic outline icon"></i>\n    <div class="content" v-class="active: milestone.number == item.number">\n      <div class="header">\n        <a href="{{htmlUrl}}?milestone={{item.number}}" target="_blank">\n          {{item.title}}</a>\n        <strong v-if="item.open_issues" class="ui label red" title="open issues">{{item.open_issues}}</strong>\n        <strong v-if="item.closed_issues" class="ui label" title="closed issues">{{item.closed_issues}}</strong>\n        <span v-if="item.due_on" class="ui label" style="float: right" title="due date">{{item.due_on | formatDate}}</span>\n      </div>\n      <div v-component="github-issue-flattened"\n          v-with="user: user, project: project, milestone: item, items: $root.items">\n      </div>\n      <div v-if="item.description" v-html="item.description | stripComments | marked"></div>\n    </div>\n  </div>\n</div>\n';
-},{}],48:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 var Fetchable = require('../fetchable');
 
 var siteBaseUrl = 'https://github.com/';
@@ -6075,9 +6113,9 @@ module.exports = Fetchable.extend({
   }
 });
 
-},{"../fetchable":28,"./template.html":49}],49:[function(require,module,exports){
+},{"../fetchable":28,"./template.html":51}],51:[function(require,module,exports){
 module.exports = '<h5 class="ui header">Milestones\n  <a v-if="htmlUrl" href="{{htmlUrl}}" target="_blank" class="ui top right attached label">\n    <i class="basic url icon"></i></a>\n  <a v-if="milestone.number" v-on="click: milestone = {}" title="clear milestone">\n    <i class="basic cancel circle icon link"></i></a></h5>\n<div class="ui fluid vertical menu">\n  <div class="item" v-if="!items.length">\n    <h4 class="disabled">No Milestones.</h4>\n  </div>\n  <a class="item" v-class="active: milestone.number == number" v-repeat="items" target="_blank"\n    v-on="click: toggleMilestone">\n    {{title}}\n    <strong v-if="open_issues" class="ui label red" title="open issues">{{open_issues}}</strong>\n    <strong v-if="closed_issues" class="ui label" title="closed issues">{{closed_issues}}</strong>\n  </a>\n</div>\n';
-},{}],50:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 var Fetchable = require('../fetchable');
 
 var userBaseUrl = 'https://api.github.com/users/';
@@ -6098,7 +6136,7 @@ module.exports = Fetchable.extend({
   }
 });
 
-},{"../fetchable":28}],51:[function(require,module,exports){
+},{"../fetchable":28}],53:[function(require,module,exports){
 var Vue = require('vue');
 
 window.VueGithub = Vue.extend({
@@ -6118,8 +6156,9 @@ window.VueGithub = Vue.extend({
     'github-milestone-list-flattened': require('./github-milestone-list-flattened'),
     'github-issue-list': require('./github-issue-list'),
     'github-issue-accordion': require('./github-issue-accordion'),
-    'github-issue-flattened': require('./github-issue-flattened')
+    'github-issue-flattened': require('./github-issue-flattened'),
+    'github-label-list': require('./github-label-list')
   }
 });
 
-},{"./filters/formatDate":29,"./filters/marked":30,"./filters/stripComments":31,"./filters/truncate":32,"./github-branch-list":33,"./github-commit-list":34,"./github-issue-accordion":36,"./github-issue-flattened":38,"./github-issue-list":40,"./github-milestone-accordion":42,"./github-milestone-flattened":44,"./github-milestone-list":48,"./github-milestone-list-flattened":46,"./github-repo-list":50,"vue":22}]},{},[51])
+},{"./filters/formatDate":29,"./filters/marked":30,"./filters/stripComments":31,"./filters/truncate":32,"./github-branch-list":33,"./github-commit-list":34,"./github-issue-accordion":36,"./github-issue-flattened":38,"./github-issue-list":40,"./github-label-list":42,"./github-milestone-accordion":44,"./github-milestone-flattened":46,"./github-milestone-list":50,"./github-milestone-list-flattened":48,"./github-repo-list":52,"vue":22}]},{},[53])

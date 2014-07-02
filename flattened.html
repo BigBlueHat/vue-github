@@ -9,6 +9,7 @@
   .muted{opacity:0.7}
   .accordion .title.active{position:relative}
   .accordion .content{overflow:auto}
+  .labels .label{text-transform: none;margin-top:0.25em}
   </style>
 </head>
 <body>
@@ -32,10 +33,13 @@
       descriptions which may include vue-github markup for issue lists from
       other repositories. Sadly, there are only two sort options:
       <code>due_date</code> and <code>completeness</code>.</p>
-      <div v-component="github-milestone-list-flattened"
-          v-with="user: user, project: project" data-sort="completeness"
-          data-milestone="{}">
-        </div>
+      <section class="ui two column grid">
+        <div class="column" v-component="github-milestone-list-flattened"
+            v-with="user: user, project: project" data-sort="completeness"
+            data-milestone="{}"></div>
+        <div class="column" v-component="github-label-list"
+          v-with="user: user, project: project"></div>
+      </section>
       <h1 class="ui header">Specific Milestone</h1>
       <p>This milestone is chosen entirely via markup and could be from any
       public GitHub repo. It also includes the "embeded" markup from the
