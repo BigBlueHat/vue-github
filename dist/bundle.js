@@ -5966,11 +5966,11 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.$watch('user', function () {
-      this.fetchData();
-    });
-    this.$watch('project', function () {
-      this.fetchData();
+    this.watchable = ['user', 'project'];
+    this.$watch('watchable', function () {
+      if (this.user && this.project) {
+        this.fetchData();
+      }
     });
   },
   methods: {
