@@ -5889,6 +5889,8 @@ module.exports = Fetchable.extend({
       var url, number;
       if (this.user && this.project) {
         url = repoBaseUrl + this.user + '/' + this.project + '/issues?';
+
+        // TODO: painfully bad, thrown together mess...clean/fix/improve
         if (this.milestone && this.milestone.number) {
           number = this.milestone.number;
         } else if (this['data-milestone']) {
@@ -5902,6 +5904,10 @@ module.exports = Fetchable.extend({
             url += '&state=all';
           }
         }
+        if (this.milestone == 'none') {
+          url+='milestone=none';
+        }
+
         if (this.labels) {
           url += '&labels=' + this.labels.join(',');
         }

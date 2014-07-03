@@ -33,8 +33,19 @@
       other repositories. Sadly, there are only two sort options:
       <code>due_date</code> and <code>completeness</code>.</p>
       <section class="ui two column grid">
-        <div class="column" v-component="github-milestone-list-flattened"
-            v-with="user: user, project: project, labels: labels"></div>
+        <div class="column">
+          <github-milestone-list-flattened v-with="user: user, project: project, labels: labels"></github-milestone-list-flattened>
+          <hr class="ui" />
+          <div class="ui fluid list">
+            <div class="item">
+              <i class="list layout basic outline icon"></i>
+              <div class="content">
+                <div class="header">Backlog</div>
+                <github-issue-flattened user="hypothesis" project="vision" milestone="none" v-with="labels: labels"></github-issue-flattened>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="column">
           <github-label-list v-with="user: user, project: project, labels: labels"></github-label-list>
         </div>
