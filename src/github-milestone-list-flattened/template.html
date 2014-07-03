@@ -15,7 +15,7 @@
         <span v-if="item.due_on" class="ui label" style="float: right" title="due date">{{item.due_on | formatDate}}</span>
       </div>
       <div v-component="github-issue-flattened"
-          v-with="user: user, project: project, milestone: item, items: $root.items">
+          v-with="user: user, project: project, milestone: item, labels: labels, items: $root.items">
       </div>
       <div v-if="item.description" v-html="item.description | stripComments | marked"></div>
     </div>
