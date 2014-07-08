@@ -12,10 +12,12 @@ module.exports = Fetchable.extend({
       if (this.user && this.project) {
         var sort = this.$data['data-sort'] || 'due_date';
         var state = this.$data['data-state'] || 'open';
+        var direction = this.$data['data-direction'] || 'asc';
         var url = repoBaseUrl + this.user + '/'
           + this.project + '/milestones'
           + '?sort=' + sort
-          + '&state=' + state;
+          + '&state=' + state
+          + '&direction=' + direction;
         return url;
       }
     },

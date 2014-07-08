@@ -34,13 +34,16 @@
       <code>due_date</code> and <code>completeness</code>.</p>
       <section class="ui two column grid">
         <div class="column">
-          <github-milestone-list-flattened v-with="user: user, project: project, labels: labels"></github-milestone-list-flattened>
+          <github-milestone-list-flattened
+            v-with="user: user, project: project, labels: labels"
+            data-direction="desc">
+          </github-milestone-list-flattened>
           <div class="ui divider"></div>
           <div class="ui fluid list">
             <div class="item">
               <i class="list layout basic outline icon"></i>
               <div class="content">
-                <div class="header">Backlog</div>
+                <div class="header">Future</div>
                 <github-issue-flattened user="hypothesis" project="vision" milestone="none" v-with="labels: labels"></github-issue-flattened>
               </div>
             </div>
