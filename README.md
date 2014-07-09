@@ -32,6 +32,21 @@ npm run dev
 
 ...and `dist/bundle.js` will have your variation.
 
+## Testing
+
+`npm run test` to run tests in the command line. Or `npm run test-browser` to
+generate a `test/test-bundle.js` file to be use with `test/test.html`.
+
+Due to CORS settings at GitHub not likeing `file:///`-based requests, you'll
+want to load the test page via localhost.
+
+```
+python -m SimpleHTTPServer
+```
+
+Then open `http://localhost:8000/test/test.html` should get you the in-browser
+tests. Enjoy! and Contribute!!1! :smiley_cat:
+
 # License
 
 [Apache License 2.0](http://apache.org/licenses/LICENSE-2.0)
