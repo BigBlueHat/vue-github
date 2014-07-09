@@ -6139,10 +6139,11 @@ var userBaseUrl = 'https://api.github.com/users/';
 module.exports = Fetchable.extend({
   computed: {
     apiUrl: function() {
+      var url = '';
       if (this.user) {
-        var url = userBaseUrl + this.user + '/repos';
-        return url;
+        url = userBaseUrl + this.user + '/repos';
       }
+      return url;
     }
   },
   created: function() {
