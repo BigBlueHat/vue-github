@@ -13,4 +13,8 @@ describe('fetchable', function () {
     // TODO: use Chai as Promised to deal with network lag
     assert.equal(typeof c.items, 'object');
   });
+
+  it('should store the response JSON in localStorage', function() {
+    assert(btoa(c.apiUrl) in window.localStorage);
+  });
 });
