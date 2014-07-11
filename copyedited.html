@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Roadmap Demo - vue-github</title>
+  <link rel="stylesheet" type="text/css" href="semantic-ui/css/semantic.min.css" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <style type="text/css">
+  .muted{opacity:0.7}
+  .accordion .title.active{position:relative}
+  .accordion .content{overflow:auto}
+  </style>
+</head>
+<body>
+
+<!--   <a href="https://github.com/bigbluehat/vue-github">
+    <img style="position: absolute; z-index: 1; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png">
+  </a> -->
+
+<!--   <section>
+    <h1 class="ui header">Roadmap Demo</h1>
+    <p>It's possible to constructe HTML pages + vue-github components to
+    dynamically represent the state of a "roadmap" as seen across multiple
+    GitHub projects (aka repos).</p>
+    <p><a href="#" onclick="localStorage.clear();location.reload()">clear cache & reload</a></p>
+  </section>
+ -->
+  <div class="ui one column page grid">
+    <div id="roadmap-hypothesis" class="column">
+      <h1 class="ui header">Roadmap</h1>
+      <p>This is a smart list of all a bunch of what we are currently working on, finished, and will work on in the 
+        future. It's a great place to get a sense of what's going on at Hypothes.is. The items in this list are pulled 
+        directly from github, and are organized into Current, Future, and Completed. If you can't find the feature you think we should be working on here, do not dismay! Feel free to <a href="">contact us</a> or perhaps checkout our <a href="">github repository</a> for a more complete list.</p>
+
+        <!-- <h2 class="ui header">Filters</h2> -->
+        <p>Since the list is large, here are a bunch of filters to help you sort through it (simply click on one to apply it):</p>
+        <github-label-list v-with="user: user, project: project, labels: labels"></github-label-list>
+
+
+      <section class="ui one column grid">
+        <div class="column">
+          <h2 class="ui header">Current Milestones</h2>
+          <p>At Hypothes.is we organize our code into milestones to figure out what is most important for us to work on. Shown below is our current milestone, and the one we are planning to tackle next. The progress bars indicate what percentage of the issues in the milestone have been complete!</p>
+          <!-- We should add progress bars for the milestones, and also put some clarifying text in front of the due date. "Due:" should be sufficient. -->
+
+          <github-milestone-list-flattened
+            v-with="user: user, project: project, labels: labels"
+            data-direction="desc">
+          </github-milestone-list-flattened>
+          <div class="ui divider"></div>
+          <div class="ui fluid list">
+            <div class="item">
+              <!-- <i class="list layout basic outline icon"></i> -->
+              <div class="content">
+                <h2 class="ui header">Future Work</h2>
+                These features will be completed in the near future as quickly as we can get to them.
+                <!-- We need something to explain the context here. Also a link to the forum or contact page.-->
+                <github-issue-flattened user="hypothesis" project="vision" milestone="none" v-with="labels: labels"></github-issue-flattened>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Maybe have a section at the end for completed milestones? -->
+      <h2 class="ui header">Completed</h2>
+    </div>
+  </div>
+
+    <script src="dist/bundle.js"></script>
+    <script>
+    var hypothesis = new VueGithub({
+      el: '#roadmap-hypothesis',
+      data: {
+        user: 'hypothesis',
+        project: 'vision',
+        branch: 'master',
+        milestone: {},
+        labels: []
+      }
+    });
+    </script>
+</body>
+</html>
