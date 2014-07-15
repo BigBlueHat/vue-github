@@ -8,7 +8,8 @@ module.exports = Fetchable.extend({
   paramAttributes: ['user', 'project', 'milestone'],
   computed: {
     apiUrl: function() {
-      var url, number;
+      var url = '';
+      var number;
       if (this.user && this.project) {
         url = repoBaseUrl + this.user + '/' + this.project + '/issues?';
 
@@ -31,8 +32,8 @@ module.exports = Fetchable.extend({
         if (this.labels) {
           url += '&labels=' + this.labels.join(',');
         }
-        return url;
       }
+      return url;
     },
     htmlUrl: function() {
       if (this.user && this.project) {
