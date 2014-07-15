@@ -15,8 +15,8 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.watchable = ['user', 'project'];
-    this.$watch('watchable', function () {
+    this.user_and_project = [this.user, this.project];
+    this.$watch('user_and_project', function () {
       if (this.user && this.project) {
         this.fetchData();
       }

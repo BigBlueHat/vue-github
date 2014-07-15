@@ -5814,12 +5814,8 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.$watch('user', function () {
-      if (this.project) {
-        this.fetchData();
-      }
-    });
-    this.$watch('project', function () {
+    this.user_and_project = [this.user, this.project];
+    this.$watch('user_and_project', function () {
       this.fetchData();
     });
   }
@@ -5846,11 +5842,8 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.$watch('user', function () {
-      this.branch = 'master';
-      this.fetchData();
-    });
-    this.$watch('project', function () {
+    this.user_and_project = [this.user, this.project];
+    this.$watch('user_and_project', function () {
       this.branch = 'master';
       this.fetchData();
     });
@@ -5886,7 +5879,8 @@ module.exports = Fetchable.extend({
   paramAttributes: ['user', 'project', 'milestone'],
   computed: {
     apiUrl: function() {
-      var url, number;
+      var url = '';
+      var number;
       if (this.user && this.project) {
         url = repoBaseUrl + this.user + '/' + this.project + '/issues?';
 
@@ -5909,8 +5903,8 @@ module.exports = Fetchable.extend({
         if (this.labels) {
           url += '&labels=' + this.labels.join(',');
         }
-        return url;
       }
+      return url;
     },
     htmlUrl: function() {
       if (this.user && this.project) {
@@ -5920,10 +5914,8 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.$watch('user', function () {
-      this.fetchData();
-    });
-    this.$watch('project', function () {
+    this.user_and_project = [this.user, this.project];
+    this.$watch('user_and_project', function () {
       this.fetchData();
     });
     this.$watch('milestone', function () {
@@ -5964,8 +5956,8 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.watchable = ['user', 'project'];
-    this.$watch('watchable', function () {
+    this.user_and_project = [this.user, this.project];
+    this.$watch('user_and_project', function () {
       if (this.user && this.project) {
         this.fetchData();
       }
@@ -6111,10 +6103,8 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.$watch('user', function () {
-      this.fetchData();
-    });
-    this.$watch('project', function () {
+    this.user_and_project = [this.user, this.project];
+    this.$watch('user_and_project', function () {
       this.fetchData();
     });
   },

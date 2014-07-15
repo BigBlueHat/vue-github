@@ -43,10 +43,8 @@ module.exports = Fetchable.extend({
     }
   },
   created: function () {
-    this.$watch('user', function () {
-      this.fetchData();
-    });
-    this.$watch('project', function () {
+    this.user_and_project = [this.user, this.project];
+    this.$watch('user_and_project', function () {
       this.fetchData();
     });
     this.$watch('milestone', function () {
