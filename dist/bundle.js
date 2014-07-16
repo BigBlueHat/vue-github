@@ -5867,7 +5867,7 @@ module.exports = '<div class="ui fluid accordion">\n  <div class="item" v-if="!i
 },{}],38:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
 },{"../github-issue-list":40,"./template.html":39}],39:[function(require,module,exports){
-module.exports = '<ul class="ui fluid list">\n  <li class="item" v-repeat="items">\n    <div class="content">\n      <div class="header">\n        <a href="{{html_url}}" target="_blank">\n        {{title}}\n        </a>\n        <small class="muted">{{project}}/#{{number}}</small>\n        <div v-repeat="labels" class="ui circular label" v-style="background: \'#\' + color" v-attr="title: name"></div>\n      </div>\n    </div>\n  </li>\n</ul>\n';
+module.exports = '<ul class="ui fluid list">\n  <li class="item" v-repeat="items" v-class="closed: state == \'closed\'">\n    <div class="content">\n      <div class="header">\n        <i class="checkbox icon"\n          v-class="checked: state == \'closed\', empty: state == \'open\'"></i>\n        <a href="{{html_url}}" target="_blank">\n        {{title}}\n        </a>\n        <small class="muted">{{project}}/#{{number}}</small>\n        <div v-repeat="labels" class="ui circular label" v-style="background: \'#\' + color" v-attr="title: name"></div>\n      </div>\n    </div>\n  </li>\n</ul>\n';
 },{}],40:[function(require,module,exports){
 var Fetchable = require('../fetchable');
 
@@ -5890,14 +5890,17 @@ module.exports = Fetchable.extend({
         } else {
           number = this.milestone;
         }
+        if (this.state) {
+          url += '&state=' + this.state;
+        }
         if (!isNaN(number)) {
-          url += 'milestone=' + number;
+          url += '&milestone=' + number;
           if (this.milestone && this.milestone.state == 'closed') {
             url += '&state=all';
           }
         }
         if (this.milestone == 'none') {
-          url+='milestone=none';
+          url+='&milestone=none';
         }
 
         if (this.labels) {
@@ -6071,7 +6074,7 @@ module.exports = GitHubMilestoneList.extend({
 });
 
 },{"../github-milestone-list":50,"./template.html":49}],49:[function(require,module,exports){
-module.exports = '<div class="ui fluid list">\n  <div class="item" v-if="!items.length">\n    <div class="content">\n      <h4 class="header disabled">No Milestones</h4>\n    </div>\n  </div>\n  <div class="item" v-repeat="item: items">\n    <i class="list layout basic outline icon"></i>\n    <div class="content" v-class="active: milestone.number == item.number">\n      <div class="header">\n        <a href="{{htmlUrl}}?milestone={{item.number}}" target="_blank">\n          {{item.title}}</a>\n        <strong v-if="item.open_issues" class="ui label red" title="open issues">{{item.open_issues}}</strong>\n        <strong v-if="item.closed_issues" class="ui label" title="closed issues">{{item.closed_issues}}</strong>\n        <span v-if="item.due_on" class="ui label" style="float: right" title="due date">{{item.due_on | formatDate}}</span>\n      </div>\n      <div v-component="github-issue-flattened"\n          v-with="user: user, project: project, milestone: item, labels: labels, items: $root.items">\n      </div>\n      <div v-if="item.description" v-html="item.description | stripComments | marked"></div>\n    </div>\n  </div>\n</div>\n';
+module.exports = '<div class="ui fluid list">\n  <div class="item" v-if="!items.length">\n    <div class="content">\n      <h4 class="header disabled">No Milestones</h4>\n    </div>\n  </div>\n  <div class="item" v-repeat="item: items">\n    <i class="list layout basic outline icon"></i>\n    <div class="content" v-class="active: milestone.number == item.number">\n      <div class="header">\n        <a href="{{htmlUrl}}?milestone={{item.number}}" target="_blank">\n          {{item.title}}</a>\n        <strong v-if="item.open_issues" class="ui label red" title="open issues">{{item.open_issues}}</strong>\n        <strong v-if="item.closed_issues" class="ui label" title="closed issues">{{item.closed_issues}}</strong>\n        <span v-if="item.due_on" class="ui label" style="float: right" title="due date">{{item.due_on | formatDate}}</span>\n      </div>\n      <div v-component="github-issue-flattened"\n          v-with="user: user, project: project, milestone: item, labels: labels, items: $root.items, state: \'all\'">\n      </div>\n      <div v-if="item.description" v-html="item.description | stripComments | marked"></div>\n    </div>\n  </div>\n</div>\n';
 },{}],50:[function(require,module,exports){
 var Fetchable = require('../fetchable');
 

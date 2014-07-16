@@ -19,14 +19,17 @@ module.exports = Fetchable.extend({
         } else {
           number = this.milestone;
         }
+        if (this.state) {
+          url += '&state=' + this.state;
+        }
         if (!isNaN(number)) {
-          url += 'milestone=' + number;
+          url += '&milestone=' + number;
           if (this.milestone && this.milestone.state == 'closed') {
             url += '&state=all';
           }
         }
         if (this.milestone == 'none') {
-          url+='milestone=none';
+          url+='&milestone=none';
         }
 
         if (this.labels) {

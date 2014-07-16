@@ -1,7 +1,9 @@
 <ul class="ui fluid list">
-  <li class="item" v-repeat="items">
+  <li class="item" v-repeat="items" v-class="closed: state == 'closed'">
     <div class="content">
       <div class="header">
+        <i class="checkbox icon"
+          v-class="checked: state == 'closed', empty: state == 'open'"></i>
         <a href="{{html_url}}" target="_blank">
         {{title}}
         </a>
