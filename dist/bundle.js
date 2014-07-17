@@ -5890,10 +5890,11 @@ module.exports = Fetchable.extend({
         } else {
           number = this.milestone;
         }
+
         if (this.state) {
           url += '&state=' + this.state;
         }
-        if (!isNaN(number)) {
+        if (!isNaN(number) && number != null) {
           url += '&milestone=' + number;
           if (this.milestone && this.milestone.state == 'closed') {
             url += '&state=all';

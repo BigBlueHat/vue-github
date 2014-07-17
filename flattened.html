@@ -46,7 +46,7 @@
               <i class="list layout basic outline icon"></i>
               <div class="content">
                 <div class="header">Future</div>
-                <github-issue-flattened user="hypothesis" project="vision" milestone="*" v-with="labels: labels"></github-issue-flattened>
+                <github-issue-flattened user="hypothesis" project="vision" milestone="none" v-with="labels: labels"></github-issue-flattened>
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@
       </github-milestone-flattened>
       <h1 class="ui header">Just the issues from a milestone</h1>
       <p>Also completely declared via markup</p>
-      <github-issue-flattened user="hypothesis" project="vision" milestone="none" v-with="labels: ['Roadmap']">
+      <github-issue-flattened user="hypothesis" project="vision" v-with="labels: ['Roadmap']">
       </github-issue-flattened>
       <!--h3 class="ui disabled header">Completed Milestones</h3>
       <div v-component="github-milestone-accordion"
