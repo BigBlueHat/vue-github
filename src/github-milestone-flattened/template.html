@@ -7,7 +7,7 @@
           {{milestone.title}}</a>
         <strong v-if="milestone.open_issues" class="ui label red" title="open issues">{{milestone.open_issues}}</strong>
         <strong v-if="milestone.closed_issues" class="ui label" title="closed issues">{{milestone.closed_issues}}</strong>
-        <span v-if="milestone.due_on" class="ui label" style="float: right" title="due date">{{milestone.due_on | formatDate}}</span>
+        <span v-if="milestone.due_on && show_due_on != 'false'" class="ui label" style="float: right" title="due date">{{milestone.due_on | formatDate}}</span>
       </div>
       <div v-if="milestone.description" v-html="milestone.description | stripComments | marked"></div>
     </div>

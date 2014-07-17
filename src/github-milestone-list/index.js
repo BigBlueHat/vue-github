@@ -5,7 +5,7 @@ var repoBaseUrl = 'https://api.github.com/repos/';
 
 module.exports = Fetchable.extend({
   template: require('./template.html'),
-  paramAttributes: ['data-sort', 'data-state'],
+  paramAttributes: ['data-sort', 'data-state', 'show_due_on'],
   computed: {
     apiUrl: function() {
       if (this.user && this.project) {

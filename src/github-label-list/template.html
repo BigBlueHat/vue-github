@@ -1,5 +1,5 @@
 <div v-if="items" class="ui list">
-  <span class="ui item"
+  <a class="ui item"
     v-repeat="items"
     v-style="background-color: (labels.indexOf(name) >= 0 ? '#' + color : 'transparent'),
       font-weight: (labels.indexOf(name) >= 0 ? 'bold' : 'normal')"
@@ -8,6 +8,6 @@
       <span class="ui circular label"
         v-style="background-color: '#' + color,
           display: (labels.indexOf(name) >= 0 ? 'none' : '')"></span>
-      {{name}}
-    </span>
+    {{name}}
+  </a>
 </div>

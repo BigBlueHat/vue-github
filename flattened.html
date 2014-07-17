@@ -35,9 +35,10 @@
       <code>due_date</code> and <code>completeness</code>.</p>
       <section class="ui two column grid">
         <div class="column">
+          <h3 class="ui header">Sprints & Future Work</h3>
           <github-milestone-list-flattened
             v-with="user: user, project: project, labels: labels"
-            data-direction="desc">
+            data-direction="desc" show_due_on="false">
           </github-milestone-list-flattened>
           <div class="ui divider"></div>
           <div class="ui fluid list">
@@ -51,6 +52,7 @@
           </div>
         </div>
         <div class="column">
+          <h5 class="ui header muted">filter by label</h5>
           <github-label-list v-with="user: user, project: project, labels: labels"></github-label-list>
         </div>
       </section>
