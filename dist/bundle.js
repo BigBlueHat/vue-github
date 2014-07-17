@@ -5741,6 +5741,9 @@ module.exports = ViewModel
 var Vue = require('vue');
 
 module.exports = Vue.extend({
+  data: {
+    items: []
+  },
   methods: {
     fetchData: function () {
       if (!this.apiUrl) return false;
