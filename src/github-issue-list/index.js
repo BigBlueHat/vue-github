@@ -30,6 +30,8 @@ module.exports = Fetchable.extend({
         }
         if (this.milestone == 'none') {
           url+='&milestone=none';
+        } else if (this.milestone == '*') {
+          url += '&milestone=*';
         }
 
         if (this.labels) {
