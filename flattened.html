@@ -63,8 +63,9 @@
       <github-milestone-flattened user="hypothesis" project="vision" milestone="4">
       </github-milestone-flattened>
       <h1 class="ui header">Just the issues from a milestone</h1>
-      <p>Also completely declared via markup</p>
-      <github-issue-flattened user="hypothesis" project="vision" v-with="labels: ['Roadmap']">
+      <p>Also completely declared via markup and with it's output build from a custom template partial.</p>
+      <github-issue-flattened user="hypothesis" project="vision" v-with="labels: ['Roadmap']" v-partial="issue-list-with-description">
+      {{> issue-list-with-description}}
       </github-issue-flattened>
       <!--h3 class="ui disabled header">Completed Milestones</h3>
       <div v-component="github-milestone-accordion"
@@ -72,6 +73,26 @@
       </div-->
     </div>
   </div>
+
+  <script id="issue-list-with-description" type="text/vuejs+html">
+      <ul class="ui fluid list">
+        <li class="item" v-repeat="items" v-class="closed: state == 'closed'">
+          <div class="content">
+            <div class="header">
+              <i class="checkbox icon"
+                v-class="checked: state == 'closed', empty: state == 'open'"></i>
+              <a href="{{html_url}}" target="_blank">
+              {{title}}
+              </a>
+              <small class="muted">{{project}}/#{{number}}</small>
+              <div v-repeat="labels" class="ui circular label" v-style="background: '#' + color" v-attr="title: name"></div>
+            </div>
+            <div class="description"
+              v-if="body" v-html="body | stripComments | marked"></div>
+          </div>
+        </li>
+      </ul>
+    </script>
 
     <script src="dist/bundle.js"></script>
     <script>
@@ -84,6 +105,9 @@
         milestone: {},
         labels: [],
         items: []
+      },
+      partials: {
+        'issue-list-with-description': '#issue-list-with-description'
       }
     });
     </script>
